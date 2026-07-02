@@ -1,0 +1,30 @@
+all: false
+template: testify
+formatter: goimports
+packages:
+  github.com/wigata-intech/logres/internal/api/repository:
+    config:
+      inpackage: false
+      dir: "mock/api/repository"
+      filename: "{{.InterfaceName}}.go"
+    interfaces:
+      IAdminUserRepository:
+      ICartRepository:
+      ICategoryRepository:
+      IFileRepository:
+      IOrderRepository:
+      IProductRepository:
+      ITagRepository:
+  github.com/wigata-intech/logres/internal/api/service:
+    config:
+      inpackage: false
+      dir: "mock/api/service"
+      filename: "{{.InterfaceName}}.go"
+    interfaces:
+      IAdminUserService:
+      IAdminFileService:
+      IAdminProductService:
+      IAdminOrderService:
+      IProductService:
+      ICartService:
+      IOrderService:

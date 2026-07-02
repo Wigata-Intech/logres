@@ -1,0 +1,7 @@
+# AI Local Settings
+CLAUDE.local.md
+.claude/settings.local.json
+
+# Secret and Config
+.env
+.app-config.yaml

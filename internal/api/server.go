@@ -76,7 +76,7 @@ func New(opts ...OptionFunc) (http.Handler, error) {
 	mux.HandleFunc("POST /api/v1/cart", s.cartHandler.Insert)
 	mux.HandleFunc("GET /api/v1/cart", s.cartHandler.List)
 	mux.HandleFunc("PATCH /api/v1/cart/{id}", s.cartHandler.Patch)
-	mux.HandleFunc("DELETE /api/v1/cart/{id}", s.cartHandler.Patch)
+	mux.HandleFunc("DELETE /api/v1/cart/{id}", s.cartHandler.Delete)
 
 	// TODO: Add step for 2FA OTP
 	mux.HandleFunc("POST /api/v1/checkout", s.orderHandler.Checkout)

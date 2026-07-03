@@ -1,0 +1,88 @@
+# golangci-lint v2 configuration.
+# Docs: https://golangci-lint.run/usage/configuration/
+#
+# This is intentionally strict. The tree still carries generated stubs that will
+# trip these linters; that noise is expected and gets cleared package by package
+# as each surface is implemented. Do not relax rules to silence stubs.
+version: "2"
+
+run:
+  timeout: 5m
+  tests: true
+
+linters:
+  default: standard
+  enable:
+    - bodyclose        # HTTP response bodies must be closed
+    - sqlclosecheck    # sql.Rows / sql.Stmt must be closed
+    - rowserrcheck     # rows.Err() must be checked after iteration
+    - errorlint        # correct error wrapping / comparison (%w, errors.Is)
+    - contextcheck     # context.Context propagated through call chains
+    - containedctx     # no context.Context stored inside structs
+    - noctx            # no HTTP/DB calls without a context
+    - revive           # broad style + exported-doc checks
+    - gocritic         # opinionated correctness/performance diagnostics
+    - gocyclo          # cyclomatic complexity ceiling
+    - goconst          # repeated string literals -> constants
+    - misspell         # spelling in comments/strings
+    - unconvert        # redundant type conversions
+    - unparam          # unused function parameters
+    - wastedassign     # assignments never read
+    - nilerr           # returning nil after a non-nil error
+    - nilnil           # do not return (nil, nil)
+    - predeclared      # shadowing predeclared identifiers
+    - prealloc         # slice preallocation opportunities
+    - gochecknoinits   # no init() outside cmd entrypoints
+    - whitespace
+
+  settings:
+    gocyclo:
+      min-complexity: 15
+    revive:
+      # Curated set. `exported` and `package-comments` are intentionally omitted:
+      # comments are opt-in, written only where they carry information — not forced
+      # on every exported symbol. Everything else that catches real problems stays.
+      rules:
+        - name: blank-imports
+        - name: context-as-argument
+        - name: context-keys-type
+        - name: dot-imports
+        - name: error-return
+        - name: error-strings
+        - name: error-naming
+        - name: errorf
+        - name: if-return
+        - name: indent-error-flow
+        - name: empty-block
+        - name: superfluous-else
+        - name: unreachable-code
+        - name: redefines-builtin-id
+        - name: var-declaration
+        - name: var-naming
+        - name: range
+        - name: receiver-naming
+        - name: time-naming
+    gocritic:
+      enabled-tags: [diagnostic, performance, style]
+      disabled-checks: [ifElseChain]
+    errcheck:
+      # Formatted writes to stdout/stderr have no meaningful failure to handle.
+      exclude-functions: [fmt.Fprint, fmt.Fprintf, fmt.Fprintln]
+
+  exclusions:
+    generated: lax
+    rules:
+      # Generated code is not ours to style.
+      - path: ^mock/
+        linters: [revive, unparam, gocritic, unused, gocyclo]
+      - path: _templ\.go$
+        linters: [revive, gocritic, whitespace, wastedassign]
+      # Table-driven tests are legitimately long.
+      - path: _test\.go$
+        linters: [gocyclo]
+
+formatters:
+  enable: [gofmt, goimports]
+  settings:
+    goimports:
+      local-prefixes: [github.com/wigata-intech/logres]

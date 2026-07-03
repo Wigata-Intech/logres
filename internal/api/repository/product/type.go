@@ -24,11 +24,11 @@ func New(db *sql.DB, log *slog.Logger) repository.IProductRepository {
 }
 
 // Files
-func (r *productRepository) FileAssign(ctx context.Context, productFile model.ProductFile) error {
+func (r *productRepository) FileAssign(ctx context.Context, productFile *model.ProductFile) error {
 	panic("not implemented") // TODO: Implement
 }
 
-func (r *productRepository) FileUnassign(ctx context.Context, productFile model.ProductFile) error {
+func (r *productRepository) FileUnassign(ctx context.Context, productFile *model.ProductFile) error {
 	panic("not implemented") // TODO: Implement
 }
 
@@ -37,11 +37,11 @@ func (r *productRepository) FileListByProductID(ctx context.Context, productID u
 }
 
 // Category and Tags
-func (r *productRepository) CategoryAssign(ctx context.Context, productCategory model.ProductCategory) error {
+func (r *productRepository) CategoryAssign(ctx context.Context, productCategory *model.ProductCategory) error {
 	panic("not implemented") // TODO: Implement
 }
 
-func (r *productRepository) CategoryUnassign(ctx context.Context, productCategory model.ProductCategory) error {
+func (r *productRepository) CategoryUnassign(ctx context.Context, productCategory *model.ProductCategory) error {
 	panic("not implemented") // TODO: Implement
 }
 
@@ -49,11 +49,11 @@ func (r *productRepository) CategoryListByProductID(ctx context.Context, product
 	panic("not implemented") // TODO: Implement
 }
 
-func (r *productRepository) TagAssign(ctx context.Context, productTag model.ProductTag) error {
+func (r *productRepository) TagAssign(ctx context.Context, productTag *model.ProductTag) error {
 	panic("not implemented") // TODO: Implement
 }
 
-func (r *productRepository) TagUnassign(ctx context.Context, productTag model.ProductTag) error {
+func (r *productRepository) TagUnassign(ctx context.Context, productTag *model.ProductTag) error {
 	panic("not implemented") // TODO: Implement
 }
 

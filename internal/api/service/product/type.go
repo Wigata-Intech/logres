@@ -28,6 +28,6 @@ func (s *productService) List(ctx context.Context, req *model.ProductListRequest
 	panic("not implement") // TODO: Implement
 }
 
-func (s *productService) Detail(Ctx context.Context, req *model.ProductDetailRequest) (*model.ProductResponse, error) {
+func (s *productService) Detail(ctx context.Context, req *model.ProductDetailRequest) (*model.ProductResponse, error) {
 	panic("not implement") // TODO: Implement
 }

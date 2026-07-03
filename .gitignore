@@ -5,3 +5,19 @@ CLAUDE.local.md
 # Secret and Config
 .env
 .app-config.yaml
+
+# Build artifacts
+/bin/
+/dist/
+
+# Test & coverage
+coverage.out
+cov.out
+
+# Local database files
+/db/*.db
+/db/*.db-shm
+/db/*.db-wal
+
+# OS junk
+.DS_Store

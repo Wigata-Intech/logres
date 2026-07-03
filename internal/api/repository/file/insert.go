@@ -6,6 +6,6 @@ import (
 	"github.com/wigata-intech/logres/internal/api/model"
 )
 
-func (r *fileRepository) Insert(ctx context.Context, file model.File) error {
+func (r *fileRepository) Insert(ctx context.Context, file *model.File) error {
 	panic("not implemented") // TODO: Implement
 }

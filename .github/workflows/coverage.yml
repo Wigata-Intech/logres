@@ -1,0 +1,102 @@
+name: Coverage
+
+# On pull requests: compute total coverage and post/update a sticky PR comment.
+# On push to main: publish a shields.io endpoint badge (coverage.json) to the
+# orphan `badges` branch, which the README reads via img.shields.io/endpoint.
+# Self-contained: no external service, no secret beyond the default GITHUB_TOKEN.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write       # force-push the single-file `badges` branch (main)
+  pull-requests: write  # post the coverage comment (PRs)
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version: '1.26.x'
+          check-latest: true
+
+      - name: Compute coverage
+        id: cov
+        run: |
+          go test -covermode=atomic -coverprofile=coverage.out ./...
+          pct=$(go tool cover -func=coverage.out | awk '/^total:/ {gsub("%","",$3); print $3}')
+          echo "pct=$pct" >> "$GITHUB_OUTPUT"
+          # Ascending tiers; the highest satisfied threshold wins.
+          color=red
+          awk "BEGIN{exit !($pct>=40)}" && color=orange
+          awk "BEGIN{exit !($pct>=60)}" && color=yellow
+          awk "BEGIN{exit !($pct>=80)}" && color=green
+          echo "color=$color" >> "$GITHUB_OUTPUT"
+          # Per-function breakdown for the PR comment (multiline output).
+          {
+            echo "func<<COVEOF"
+            go tool cover -func=coverage.out
+            echo "COVEOF"
+          } >> "$GITHUB_OUTPUT"
+          echo "coverage: ${pct}% (${color})"
+
+      - name: Comment coverage on the PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        env:
+          PCT: ${{ steps.cov.outputs.pct }}
+          COLOR: ${{ steps.cov.outputs.color }}
+          FUNC: ${{ steps.cov.outputs.func }}
+        with:
+          script: |
+            const marker = '<!-- logres-coverage -->';
+            const body = [
+              marker,
+              '### 🧪 Test coverage',
+              '',
+              `**Total: ${process.env.PCT}%**  \`${process.env.COLOR}\``,
+              '',
+              '<details><summary>Per-function coverage</summary>',
+              '',
+              '```',
+              process.env.FUNC,
+              '```',
+              '</details>',
+            ].join('\n');
+
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            const { data: comments } = await github.rest.issues.listComments({ owner, repo, issue_number });
+            const existing = comments.find(c => c.body && c.body.includes(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
+            } else {
+              await github.rest.issues.createComment({ owner, repo, issue_number, body });
+            }
+
+      - name: Publish badge to the badges branch
+        if: github.event_name != 'pull_request'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PCT: ${{ steps.cov.outputs.pct }}
+          COLOR: ${{ steps.cov.outputs.color }}
+        run: |
+          tmp="$(mktemp -d)"
+          printf '{"schemaVersion":1,"label":"coverage","message":"%s%%","color":"%s"}\n' \
+            "$PCT" "$COLOR" > "$tmp/coverage.json"
+          cd "$tmp"
+          git init -q
+          git checkout -q -b badges
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add coverage.json
+          git commit -q -m "chore: coverage badge ${PCT}%"
+          git push -q -f \
+            "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
+            badges

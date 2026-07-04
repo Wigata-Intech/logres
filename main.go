@@ -10,19 +10,8 @@ import (
 	"github.com/wigata-intech/logres/internal/shared/cli"
 )
 
-// Build metadata, overridden via -ldflags at build time (see Makefile).
-var (
-	version   = "dev"
-	commit    = "none"
-	buildDate = "unknown"
-)
-
 func main() {
-	err := cmd.Execute(context.Background(), cmd.BuildInfo{
-		Version:   version,
-		Commit:    commit,
-		BuildDate: buildDate,
-	})
+	err := cmd.Execute(context.Background())
 	if err == nil {
 		return
 	}

@@ -23,16 +23,17 @@ verifiable backbone the regulatory sections below lean on.
 
 | # | Control | Standard | Status |
 |---|---------|----------|--------|
-| X1 | Passwords hashed with **Argon2id** (RFC 9106) — never bcrypt/sha/plaintext. Parameters checked in on introduction. | OWASP ASVS 2.4 | partial (`internal/shared/hasher` built + CI-tested: argon2id, PHC storage, rehash-on-verify, semaphore; no live hashing path until Login/Setup service — Phase 5) |
-| X2 | Session/access tokens are **JWT** with the algorithm pinned server-side (reject `alg=none`; RFC 7519/8725); secret ≥ 256-bit; `exp` always set. | RFC 8725 | partial (`internal/shared/token` built + CI-tested: HS256 pinned, `alg=none`/confusion rejected, `exp` required, ≥256-bit secret floor; issuance/verification wiring — Phase 5) |
+| X1 | Passwords hashed with **Argon2id** (RFC 9106) — never bcrypt/sha/plaintext. Parameters checked in on introduction. | OWASP ASVS 2.4 | partial (`internal/shared/hasher` built + CI-tested: argon2id, PHC storage, rehash-on-verify, semaphore; wired into the `api` command's DI graph from `config.Auth.Argon2` — Phase 6; no HTTP route reaches Login/Setup yet — Phase 7) |
+| X2 | Session/access tokens are **JWT** with the algorithm pinned server-side (reject `alg=none`; RFC 7519/8725); secret ≥ 256-bit; `exp` always set. | RFC 8725 | partial (`internal/shared/token` built + CI-tested: HS256 pinned, `alg=none`/confusion rejected, `exp` required, ≥256-bit secret floor; `config.Load` now fails fast if `AUTH_JWT_SECRET` is unset or < 32 bytes, before any handler can start — Phase 6; issuance/verification call sites — Phase 7) |
 | X3 | Refresh tokens are opaque, stored **hashed** (SHA-256), single-use, with reuse-detection that revokes the family (RFC 6749 Section 10.4). | RFC 6749 | partial (model + repo built + CI-tested: hashed at rest, `Rotate`/`RevokeFamily`/`RevokeAllForUser` primitives; rotation + reuse-detection call sites — Phase 5) |
 | X4 | Auth cookies use `__Host-` prefix, `HttpOnly`, `Secure`, `SameSite=Lax`. | OWASP | planned |
 | X5 | Every request carries a **UUIDv7** request id (RFC 9562); it appears in logs and in the `instance` field of error responses. | RFC 9562 | partial (uuidv7 in models) |
 | X6 | API errors use **`application/problem+json`** (RFC 9457); success uses the `{code, message, data}` envelope. Internal error text/stack traces never reach clients. | RFC 9457 | planned |
 | X7 | All SQL is **parameterised**; identifiers interpolated into SQL are validated against an allowlist (see `migrationx` table-name check). | CWE-89 | enforced |
 | X8 | Money is `shopspring/decimal` end to end — never `float64`. Currency is explicit (ISO 4217). | — | enforced (models) |
-| X9 | Structured logging via `slog`; **PII and secrets are redacted before the log call**, never after. | GDPR Art. 25 | planned |
+| X9 | Structured logging via `slog`; **PII and secrets are redacted before the log call**, never after. | GDPR Art. 25 | partial (`config.Load` never logs `AUTH_JWT_SECRET`/`MAILGUN_API_KEY`; the `api` command logs only that Mailgun is unconfigured, not the empty credential — Phase 6; broader PII redaction across handlers still `planned`) |
 | X10 | Dependencies scanned every CI run: `govulncheck` (CVEs) + `gosec` (SAST); a finding is a red build. | ISO 27001 A.8.8 | enforced |
+| X11 | **Uniform authentication errors (anti-enumeration).** Login/forgot/reset never reveal whether an email exists — one generic sentinel per flow (`ErrInvalidCredentials`, `ErrInvalidReset`) and a uniform forgot-password response; timing is equalised via a dummy Argon2 verify on unknown email. The handler must map each sentinel to a single message naming both factors ("email or password is incorrect"), never a factor-specific one. | ISO 27001 A.8.5 · UU PDP 35–36 · OWASP | partial (service enforced: `adminUserService` Login/Forgot/Reset uniform + dummy-verify; handler message mapping — Phase 7) |
 
 ---
 
@@ -43,7 +44,7 @@ Operator owns the ISMS; we supply technical controls that map to Annex A.
 - **A.8.8 Vulnerability management** — `govulncheck` + `gosec` + Dependabot are wired into CI (`enforced`). No merge with an open high finding.
 - **A.8.24 Cryptography** — crypto choices are centralised (X1–X4), never hand-rolled per feature. Use `crypto/*` and vetted libraries only.
 - **A.8.15 Logging** — security-relevant events (admin login, password change, permission change, data export/delete) emit an audit log entry with actor, action, target id, timestamp, request id. `planned`.
-- **A.8.5 Secure authentication** — X1–X4.
+- **A.8.5 Secure authentication** — X1–X4, X11 (uniform auth errors / anti-enumeration).
 - **A.5.34 Privacy & PII protection** — see Section 2.
 - **Data at rest** — SQLite file permissions `0600`; document operator guidance for full-disk / volume encryption. `planned`.
 

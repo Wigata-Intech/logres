@@ -41,20 +41,8 @@ type mailgunMailer struct {
 	httpClient *http.Client
 }
 
-type Option func(*mailgunMailer)
-
-// WithBaseURL overrides the Mailgun API host, e.g. for the EU region.
-func WithBaseURL(baseURL string) Option {
-	return func(m *mailgunMailer) { m.baseURL = strings.TrimSuffix(baseURL, "/") }
-}
-
-// WithHTTPClient overrides the client used for the API call.
-func WithHTTPClient(c *http.Client) Option {
-	return func(m *mailgunMailer) { m.httpClient = c }
-}
-
 // New builds a Mailgun-backed Mailer. apiKey, domain, and from are required.
-func New(apiKey, domain, from string, opts ...Option) (Mailer, error) {
+func New(apiKey, domain, from string, opts ...OptionFunc) (Mailer, error) {
 	if apiKey == "" {
 		return nil, fmt.Errorf("mailer.New: apiKey is required")
 	}

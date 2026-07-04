@@ -38,8 +38,68 @@ func (_m *MockIAdminUserRepository) EXPECT() *MockIAdminUserRepository_Expecter 
 	return &MockIAdminUserRepository_Expecter{mock: &_m.Mock}
 }
 
+// CountAll provides a mock function for the type MockIAdminUserRepository
+func (_mock *MockIAdminUserRepository) CountAll(ctx context.Context) (int, error) {
+	ret := _mock.Called(ctx)
+
+	if len(ret) == 0 {
+		panic("no return value specified for CountAll")
+	}
+
+	var r0 int
+	var r1 error
+	if returnFunc, ok := ret.Get(0).(func(context.Context) (int, error)); ok {
+		return returnFunc(ctx)
+	}
+	if returnFunc, ok := ret.Get(0).(func(context.Context) int); ok {
+		r0 = returnFunc(ctx)
+	} else {
+		r0 = ret.Get(0).(int)
+	}
+	if returnFunc, ok := ret.Get(1).(func(context.Context) error); ok {
+		r1 = returnFunc(ctx)
+	} else {
+		r1 = ret.Error(1)
+	}
+	return r0, r1
+}
+
+// MockIAdminUserRepository_CountAll_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'CountAll'
+type MockIAdminUserRepository_CountAll_Call struct {
+	*mock.Call
+}
+
+// CountAll is a helper method to define mock.On call
+//   - ctx context.Context
+func (_e *MockIAdminUserRepository_Expecter) CountAll(ctx any) *MockIAdminUserRepository_CountAll_Call {
+	return &MockIAdminUserRepository_CountAll_Call{Call: _e.mock.On("CountAll", ctx)}
+}
+
+func (_c *MockIAdminUserRepository_CountAll_Call) Run(run func(ctx context.Context)) *MockIAdminUserRepository_CountAll_Call {
+	_c.Call.Run(func(args mock.Arguments) {
+		var arg0 context.Context
+		if args[0] != nil {
+			arg0 = args[0].(context.Context)
+		}
+		run(
+			arg0,
+		)
+	})
+	return _c
+}
+
+func (_c *MockIAdminUserRepository_CountAll_Call) Return(n int, err error) *MockIAdminUserRepository_CountAll_Call {
+	_c.Call.Return(n, err)
+	return _c
+}
+
+func (_c *MockIAdminUserRepository_CountAll_Call) RunAndReturn(run func(ctx context.Context) (int, error)) *MockIAdminUserRepository_CountAll_Call {
+	_c.Call.Return(run)
+	return _c
+}
+
 // Create provides a mock function for the type MockIAdminUserRepository
-func (_mock *MockIAdminUserRepository) Create(ctx context.Context, adminUser model.AdminUser) error {
+func (_mock *MockIAdminUserRepository) Create(ctx context.Context, adminUser *model.AdminUser) error {
 	ret := _mock.Called(ctx, adminUser)
 
 	if len(ret) == 0 {
@@ -47,7 +107,7 @@ func (_mock *MockIAdminUserRepository) Create(ctx context.Context, adminUser mod
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, model.AdminUser) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *model.AdminUser) error); ok {
 		r0 = returnFunc(ctx, adminUser)
 	} else {
 		r0 = ret.Error(0)
@@ -62,20 +122,20 @@ type MockIAdminUserRepository_Create_Call struct {
 
 // Create is a helper method to define mock.On call
 //   - ctx context.Context
-//   - adminUser model.AdminUser
+//   - adminUser *model.AdminUser
 func (_e *MockIAdminUserRepository_Expecter) Create(ctx any, adminUser any) *MockIAdminUserRepository_Create_Call {
 	return &MockIAdminUserRepository_Create_Call{Call: _e.mock.On("Create", ctx, adminUser)}
 }
 
-func (_c *MockIAdminUserRepository_Create_Call) Run(run func(ctx context.Context, adminUser model.AdminUser)) *MockIAdminUserRepository_Create_Call {
+func (_c *MockIAdminUserRepository_Create_Call) Run(run func(ctx context.Context, adminUser *model.AdminUser)) *MockIAdminUserRepository_Create_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 model.AdminUser
+		var arg1 *model.AdminUser
 		if args[1] != nil {
-			arg1 = args[1].(model.AdminUser)
+			arg1 = args[1].(*model.AdminUser)
 		}
 		run(
 			arg0,
@@ -90,7 +150,7 @@ func (_c *MockIAdminUserRepository_Create_Call) Return(err error) *MockIAdminUse
 	return _c
 }
 
-func (_c *MockIAdminUserRepository_Create_Call) RunAndReturn(run func(ctx context.Context, adminUser model.AdminUser) error) *MockIAdminUserRepository_Create_Call {
+func (_c *MockIAdminUserRepository_Create_Call) RunAndReturn(run func(ctx context.Context, adminUser *model.AdminUser) error) *MockIAdminUserRepository_Create_Call {
 	_c.Call.Return(run)
 	return _c
 }
@@ -164,7 +224,7 @@ func (_c *MockIAdminUserRepository_GetByEmail_Call) RunAndReturn(run func(ctx co
 }
 
 // Update provides a mock function for the type MockIAdminUserRepository
-func (_mock *MockIAdminUserRepository) Update(ctx context.Context, adminUser model.AdminUser) error {
+func (_mock *MockIAdminUserRepository) Update(ctx context.Context, adminUser *model.AdminUser) error {
 	ret := _mock.Called(ctx, adminUser)
 
 	if len(ret) == 0 {
@@ -172,7 +232,7 @@ func (_mock *MockIAdminUserRepository) Update(ctx context.Context, adminUser mod
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, model.AdminUser) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *model.AdminUser) error); ok {
 		r0 = returnFunc(ctx, adminUser)
 	} else {
 		r0 = ret.Error(0)
@@ -187,20 +247,20 @@ type MockIAdminUserRepository_Update_Call struct {
 
 // Update is a helper method to define mock.On call
 //   - ctx context.Context
-//   - adminUser model.AdminUser
+//   - adminUser *model.AdminUser
 func (_e *MockIAdminUserRepository_Expecter) Update(ctx any, adminUser any) *MockIAdminUserRepository_Update_Call {
 	return &MockIAdminUserRepository_Update_Call{Call: _e.mock.On("Update", ctx, adminUser)}
 }
 
-func (_c *MockIAdminUserRepository_Update_Call) Run(run func(ctx context.Context, adminUser model.AdminUser)) *MockIAdminUserRepository_Update_Call {
+func (_c *MockIAdminUserRepository_Update_Call) Run(run func(ctx context.Context, adminUser *model.AdminUser)) *MockIAdminUserRepository_Update_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 model.AdminUser
+		var arg1 *model.AdminUser
 		if args[1] != nil {
-			arg1 = args[1].(model.AdminUser)
+			arg1 = args[1].(*model.AdminUser)
 		}
 		run(
 			arg0,
@@ -215,7 +275,7 @@ func (_c *MockIAdminUserRepository_Update_Call) Return(err error) *MockIAdminUse
 	return _c
 }
 
-func (_c *MockIAdminUserRepository_Update_Call) RunAndReturn(run func(ctx context.Context, adminUser model.AdminUser) error) *MockIAdminUserRepository_Update_Call {
+func (_c *MockIAdminUserRepository_Update_Call) RunAndReturn(run func(ctx context.Context, adminUser *model.AdminUser) error) *MockIAdminUserRepository_Update_Call {
 	_c.Call.Return(run)
 	return _c
 }

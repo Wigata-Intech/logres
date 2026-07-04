@@ -1,4 +1,4 @@
-package refreshToken_test
+package adminRefreshToken_test
 
 import (
 	"context"
@@ -15,7 +15,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/wigata-intech/logres/internal/api/model"
-	"github.com/wigata-intech/logres/internal/api/repository/refreshToken"
+	"github.com/wigata-intech/logres/internal/api/repository/adminRefreshToken"
 	"github.com/wigata-intech/logres/internal/shared/dbx"
 )
 
@@ -23,7 +23,7 @@ const wantSelectByHashSQL = `SELECT ` +
 	`id, admin_user_id, token_hash, family_id, replaced_by, expires_at, revoked_at, created_at, metadata, last_used_at ` +
 	`FROM admin_refresh_tokens WHERE token_hash = ?`
 
-var refreshTokenColumns = []string{
+var adminRefreshTokenColumns = []string{
 	"id", "admin_user_id", "token_hash", "family_id",
 	"replaced_by", "expires_at", "revoked_at", "created_at",
 	"metadata", "last_used_at",
@@ -51,31 +51,31 @@ func TestGetByHash(t *testing.T) {
 		errBoom     = errors.New("query failed")
 	)
 
-	deviceNoLabel := model.RefreshTokenDevice{UserAgent: tokenUserAgent, IPAddress: tokenIPAddress}
-	deviceWithLabel := model.RefreshTokenDevice{UserAgent: tokenUserAgent, IPAddress: tokenIPAddress, DeviceLabel: &deviceLabel}
-	metadataNoLabel := model.RefreshTokenMetadata{Device: deviceNoLabel}
-	metadataWithLabel := model.RefreshTokenMetadata{Device: deviceWithLabel}
+	deviceNoLabel := model.AdminRefreshTokenDevice{UserAgent: tokenUserAgent, IPAddress: tokenIPAddress}
+	deviceWithLabel := model.AdminRefreshTokenDevice{UserAgent: tokenUserAgent, IPAddress: tokenIPAddress, DeviceLabel: &deviceLabel}
+	metadataNoLabel := model.AdminRefreshTokenMetadata{Device: deviceNoLabel}
+	metadataWithLabel := model.AdminRefreshTokenMetadata{Device: deviceWithLabel}
 
 	type testCase struct {
 		name       string
 		setup      func(mock sqlmock.Sqlmock)
 		wantErrIs  error
 		wantErr    bool
-		wantResult *model.RefreshToken
+		wantResult *model.AdminRefreshToken
 	}
 
 	cases := []testCase{
 		{
 			name: "found active token with no device label",
 			setup: func(mock sqlmock.Sqlmock) {
-				rows := sqlmock.NewRows(refreshTokenColumns).AddRow(
+				rows := sqlmock.NewRows(adminRefreshTokenColumns).AddRow(
 					idText, adminUserIDText, tokenHash, familyIDText,
 					nil, expires, nil, created,
 					marshalMetadata(t, metadataNoLabel), lastUsed,
 				)
 				mock.ExpectQuery(wantSelectByHashSQL).WithArgs(tokenHash).WillReturnRows(rows)
 			},
-			wantResult: &model.RefreshToken{
+			wantResult: &model.AdminRefreshToken{
 				ID: fixedID, AdminUserID: adminUserID, TokenHash: tokenHash,
 				FamilyID: familyID, ExpiresAt: expires, CreatedAt: created,
 				Metadata: metadataNoLabel, LastUsedAt: lastUsed,
@@ -84,14 +84,14 @@ func TestGetByHash(t *testing.T) {
 		{
 			name: "found rotated and revoked token with device label",
 			setup: func(mock sqlmock.Sqlmock) {
-				rows := sqlmock.NewRows(refreshTokenColumns).AddRow(
+				rows := sqlmock.NewRows(adminRefreshTokenColumns).AddRow(
 					idText, adminUserIDText, tokenHash, familyIDText,
 					replacedByText, expires, revoked, created,
 					marshalMetadata(t, metadataWithLabel), lastUsed,
 				)
 				mock.ExpectQuery(wantSelectByHashSQL).WithArgs(tokenHash).WillReturnRows(rows)
 			},
-			wantResult: &model.RefreshToken{
+			wantResult: &model.AdminRefreshToken{
 				ID: fixedID, AdminUserID: adminUserID, TokenHash: tokenHash,
 				FamilyID: familyID, ReplacedBy: &replacedBy, ExpiresAt: expires,
 				RevokedAt: &revoked, CreatedAt: created,
@@ -115,7 +115,7 @@ func TestGetByHash(t *testing.T) {
 		{
 			name: "malformed metadata JSON is wrapped",
 			setup: func(mock sqlmock.Sqlmock) {
-				rows := sqlmock.NewRows(refreshTokenColumns).AddRow(
+				rows := sqlmock.NewRows(adminRefreshTokenColumns).AddRow(
 					idText, adminUserIDText, tokenHash, familyIDText,
 					nil, expires, nil, created,
 					`{not-json`, lastUsed,
@@ -136,7 +136,7 @@ func TestGetByHash(t *testing.T) {
 
 			tc.setup(mock)
 
-			repo := refreshToken.New(db, slog.New(slog.NewTextHandler(io.Discard, nil)))
+			repo := adminRefreshToken.New(db, slog.New(slog.NewTextHandler(io.Discard, nil)))
 			got, err := repo.GetByHash(context.Background(), tokenHash)
 
 			switch {
@@ -150,14 +150,14 @@ func TestGetByHash(t *testing.T) {
 			default:
 				require.NoError(t, err)
 				require.NotNil(t, got)
-				assertRefreshTokenEqual(t, tc.wantResult, got)
+				assertAdminRefreshTokenEqual(t, tc.wantResult, got)
 			}
 			assert.NoError(t, mock.ExpectationsWereMet())
 		})
 	}
 }
 
-func assertRefreshTokenEqual(t *testing.T, want, got *model.RefreshToken) {
+func assertAdminRefreshTokenEqual(t *testing.T, want, got *model.AdminRefreshToken) {
 	t.Helper()
 	assert.Equal(t, want.ID, got.ID)
 	assert.Equal(t, want.AdminUserID, got.AdminUserID)

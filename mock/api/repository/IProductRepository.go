@@ -41,7 +41,7 @@ func (_m *MockIProductRepository) EXPECT() *MockIProductRepository_Expecter {
 }
 
 // CategoryAssign provides a mock function for the type MockIProductRepository
-func (_mock *MockIProductRepository) CategoryAssign(ctx context.Context, productCategory model.ProductCategory) error {
+func (_mock *MockIProductRepository) CategoryAssign(ctx context.Context, productCategory *model.ProductCategory) error {
 	ret := _mock.Called(ctx, productCategory)
 
 	if len(ret) == 0 {
@@ -49,7 +49,7 @@ func (_mock *MockIProductRepository) CategoryAssign(ctx context.Context, product
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, model.ProductCategory) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *model.ProductCategory) error); ok {
 		r0 = returnFunc(ctx, productCategory)
 	} else {
 		r0 = ret.Error(0)
@@ -64,20 +64,20 @@ type MockIProductRepository_CategoryAssign_Call struct {
 
 // CategoryAssign is a helper method to define mock.On call
 //   - ctx context.Context
-//   - productCategory model.ProductCategory
+//   - productCategory *model.ProductCategory
 func (_e *MockIProductRepository_Expecter) CategoryAssign(ctx any, productCategory any) *MockIProductRepository_CategoryAssign_Call {
 	return &MockIProductRepository_CategoryAssign_Call{Call: _e.mock.On("CategoryAssign", ctx, productCategory)}
 }
 
-func (_c *MockIProductRepository_CategoryAssign_Call) Run(run func(ctx context.Context, productCategory model.ProductCategory)) *MockIProductRepository_CategoryAssign_Call {
+func (_c *MockIProductRepository_CategoryAssign_Call) Run(run func(ctx context.Context, productCategory *model.ProductCategory)) *MockIProductRepository_CategoryAssign_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 model.ProductCategory
+		var arg1 *model.ProductCategory
 		if args[1] != nil {
-			arg1 = args[1].(model.ProductCategory)
+			arg1 = args[1].(*model.ProductCategory)
 		}
 		run(
 			arg0,
@@ -92,7 +92,7 @@ func (_c *MockIProductRepository_CategoryAssign_Call) Return(err error) *MockIPr
 	return _c
 }
 
-func (_c *MockIProductRepository_CategoryAssign_Call) RunAndReturn(run func(ctx context.Context, productCategory model.ProductCategory) error) *MockIProductRepository_CategoryAssign_Call {
+func (_c *MockIProductRepository_CategoryAssign_Call) RunAndReturn(run func(ctx context.Context, productCategory *model.ProductCategory) error) *MockIProductRepository_CategoryAssign_Call {
 	_c.Call.Return(run)
 	return _c
 }
@@ -166,7 +166,7 @@ func (_c *MockIProductRepository_CategoryListByProductID_Call) RunAndReturn(run 
 }
 
 // CategoryUnassign provides a mock function for the type MockIProductRepository
-func (_mock *MockIProductRepository) CategoryUnassign(ctx context.Context, productCategory model.ProductCategory) error {
+func (_mock *MockIProductRepository) CategoryUnassign(ctx context.Context, productCategory *model.ProductCategory) error {
 	ret := _mock.Called(ctx, productCategory)
 
 	if len(ret) == 0 {
@@ -174,7 +174,7 @@ func (_mock *MockIProductRepository) CategoryUnassign(ctx context.Context, produ
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, model.ProductCategory) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *model.ProductCategory) error); ok {
 		r0 = returnFunc(ctx, productCategory)
 	} else {
 		r0 = ret.Error(0)
@@ -189,20 +189,20 @@ type MockIProductRepository_CategoryUnassign_Call struct {
 
 // CategoryUnassign is a helper method to define mock.On call
 //   - ctx context.Context
-//   - productCategory model.ProductCategory
+//   - productCategory *model.ProductCategory
 func (_e *MockIProductRepository_Expecter) CategoryUnassign(ctx any, productCategory any) *MockIProductRepository_CategoryUnassign_Call {
 	return &MockIProductRepository_CategoryUnassign_Call{Call: _e.mock.On("CategoryUnassign", ctx, productCategory)}
 }
 
-func (_c *MockIProductRepository_CategoryUnassign_Call) Run(run func(ctx context.Context, productCategory model.ProductCategory)) *MockIProductRepository_CategoryUnassign_Call {
+func (_c *MockIProductRepository_CategoryUnassign_Call) Run(run func(ctx context.Context, productCategory *model.ProductCategory)) *MockIProductRepository_CategoryUnassign_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 model.ProductCategory
+		var arg1 *model.ProductCategory
 		if args[1] != nil {
-			arg1 = args[1].(model.ProductCategory)
+			arg1 = args[1].(*model.ProductCategory)
 		}
 		run(
 			arg0,
@@ -217,13 +217,13 @@ func (_c *MockIProductRepository_CategoryUnassign_Call) Return(err error) *MockI
 	return _c
 }
 
-func (_c *MockIProductRepository_CategoryUnassign_Call) RunAndReturn(run func(ctx context.Context, productCategory model.ProductCategory) error) *MockIProductRepository_CategoryUnassign_Call {
+func (_c *MockIProductRepository_CategoryUnassign_Call) RunAndReturn(run func(ctx context.Context, productCategory *model.ProductCategory) error) *MockIProductRepository_CategoryUnassign_Call {
 	_c.Call.Return(run)
 	return _c
 }
 
 // Create provides a mock function for the type MockIProductRepository
-func (_mock *MockIProductRepository) Create(ctx context.Context, product model.Product) error {
+func (_mock *MockIProductRepository) Create(ctx context.Context, product *model.Product) error {
 	ret := _mock.Called(ctx, product)
 
 	if len(ret) == 0 {
@@ -231,7 +231,7 @@ func (_mock *MockIProductRepository) Create(ctx context.Context, product model.P
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, model.Product) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *model.Product) error); ok {
 		r0 = returnFunc(ctx, product)
 	} else {
 		r0 = ret.Error(0)
@@ -246,20 +246,20 @@ type MockIProductRepository_Create_Call struct {
 
 // Create is a helper method to define mock.On call
 //   - ctx context.Context
-//   - product model.Product
+//   - product *model.Product
 func (_e *MockIProductRepository_Expecter) Create(ctx any, product any) *MockIProductRepository_Create_Call {
 	return &MockIProductRepository_Create_Call{Call: _e.mock.On("Create", ctx, product)}
 }
 
-func (_c *MockIProductRepository_Create_Call) Run(run func(ctx context.Context, product model.Product)) *MockIProductRepository_Create_Call {
+func (_c *MockIProductRepository_Create_Call) Run(run func(ctx context.Context, product *model.Product)) *MockIProductRepository_Create_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 model.Product
+		var arg1 *model.Product
 		if args[1] != nil {
-			arg1 = args[1].(model.Product)
+			arg1 = args[1].(*model.Product)
 		}
 		run(
 			arg0,
@@ -274,13 +274,13 @@ func (_c *MockIProductRepository_Create_Call) Return(err error) *MockIProductRep
 	return _c
 }
 
-func (_c *MockIProductRepository_Create_Call) RunAndReturn(run func(ctx context.Context, product model.Product) error) *MockIProductRepository_Create_Call {
+func (_c *MockIProductRepository_Create_Call) RunAndReturn(run func(ctx context.Context, product *model.Product) error) *MockIProductRepository_Create_Call {
 	_c.Call.Return(run)
 	return _c
 }
 
 // Delete provides a mock function for the type MockIProductRepository
-func (_mock *MockIProductRepository) Delete(ctx context.Context, product model.Product) error {
+func (_mock *MockIProductRepository) Delete(ctx context.Context, product *model.Product) error {
 	ret := _mock.Called(ctx, product)
 
 	if len(ret) == 0 {
@@ -288,7 +288,7 @@ func (_mock *MockIProductRepository) Delete(ctx context.Context, product model.P
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, model.Product) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *model.Product) error); ok {
 		r0 = returnFunc(ctx, product)
 	} else {
 		r0 = ret.Error(0)
@@ -303,20 +303,20 @@ type MockIProductRepository_Delete_Call struct {
 
 // Delete is a helper method to define mock.On call
 //   - ctx context.Context
-//   - product model.Product
+//   - product *model.Product
 func (_e *MockIProductRepository_Expecter) Delete(ctx any, product any) *MockIProductRepository_Delete_Call {
 	return &MockIProductRepository_Delete_Call{Call: _e.mock.On("Delete", ctx, product)}
 }
 
-func (_c *MockIProductRepository_Delete_Call) Run(run func(ctx context.Context, product model.Product)) *MockIProductRepository_Delete_Call {
+func (_c *MockIProductRepository_Delete_Call) Run(run func(ctx context.Context, product *model.Product)) *MockIProductRepository_Delete_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 model.Product
+		var arg1 *model.Product
 		if args[1] != nil {
-			arg1 = args[1].(model.Product)
+			arg1 = args[1].(*model.Product)
 		}
 		run(
 			arg0,
@@ -331,13 +331,13 @@ func (_c *MockIProductRepository_Delete_Call) Return(err error) *MockIProductRep
 	return _c
 }
 
-func (_c *MockIProductRepository_Delete_Call) RunAndReturn(run func(ctx context.Context, product model.Product) error) *MockIProductRepository_Delete_Call {
+func (_c *MockIProductRepository_Delete_Call) RunAndReturn(run func(ctx context.Context, product *model.Product) error) *MockIProductRepository_Delete_Call {
 	_c.Call.Return(run)
 	return _c
 }
 
 // FileAssign provides a mock function for the type MockIProductRepository
-func (_mock *MockIProductRepository) FileAssign(ctx context.Context, productFile model.ProductFile) error {
+func (_mock *MockIProductRepository) FileAssign(ctx context.Context, productFile *model.ProductFile) error {
 	ret := _mock.Called(ctx, productFile)
 
 	if len(ret) == 0 {
@@ -345,7 +345,7 @@ func (_mock *MockIProductRepository) FileAssign(ctx context.Context, productFile
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, model.ProductFile) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *model.ProductFile) error); ok {
 		r0 = returnFunc(ctx, productFile)
 	} else {
 		r0 = ret.Error(0)
@@ -360,20 +360,20 @@ type MockIProductRepository_FileAssign_Call struct {
 
 // FileAssign is a helper method to define mock.On call
 //   - ctx context.Context
-//   - productFile model.ProductFile
+//   - productFile *model.ProductFile
 func (_e *MockIProductRepository_Expecter) FileAssign(ctx any, productFile any) *MockIProductRepository_FileAssign_Call {
 	return &MockIProductRepository_FileAssign_Call{Call: _e.mock.On("FileAssign", ctx, productFile)}
 }
 
-func (_c *MockIProductRepository_FileAssign_Call) Run(run func(ctx context.Context, productFile model.ProductFile)) *MockIProductRepository_FileAssign_Call {
+func (_c *MockIProductRepository_FileAssign_Call) Run(run func(ctx context.Context, productFile *model.ProductFile)) *MockIProductRepository_FileAssign_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 model.ProductFile
+		var arg1 *model.ProductFile
 		if args[1] != nil {
-			arg1 = args[1].(model.ProductFile)
+			arg1 = args[1].(*model.ProductFile)
 		}
 		run(
 			arg0,
@@ -388,7 +388,7 @@ func (_c *MockIProductRepository_FileAssign_Call) Return(err error) *MockIProduc
 	return _c
 }
 
-func (_c *MockIProductRepository_FileAssign_Call) RunAndReturn(run func(ctx context.Context, productFile model.ProductFile) error) *MockIProductRepository_FileAssign_Call {
+func (_c *MockIProductRepository_FileAssign_Call) RunAndReturn(run func(ctx context.Context, productFile *model.ProductFile) error) *MockIProductRepository_FileAssign_Call {
 	_c.Call.Return(run)
 	return _c
 }
@@ -462,7 +462,7 @@ func (_c *MockIProductRepository_FileListByProductID_Call) RunAndReturn(run func
 }
 
 // FileUnassign provides a mock function for the type MockIProductRepository
-func (_mock *MockIProductRepository) FileUnassign(ctx context.Context, productFile model.ProductFile) error {
+func (_mock *MockIProductRepository) FileUnassign(ctx context.Context, productFile *model.ProductFile) error {
 	ret := _mock.Called(ctx, productFile)
 
 	if len(ret) == 0 {
@@ -470,7 +470,7 @@ func (_mock *MockIProductRepository) FileUnassign(ctx context.Context, productFi
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, model.ProductFile) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *model.ProductFile) error); ok {
 		r0 = returnFunc(ctx, productFile)
 	} else {
 		r0 = ret.Error(0)
@@ -485,20 +485,20 @@ type MockIProductRepository_FileUnassign_Call struct {
 
 // FileUnassign is a helper method to define mock.On call
 //   - ctx context.Context
-//   - productFile model.ProductFile
+//   - productFile *model.ProductFile
 func (_e *MockIProductRepository_Expecter) FileUnassign(ctx any, productFile any) *MockIProductRepository_FileUnassign_Call {
 	return &MockIProductRepository_FileUnassign_Call{Call: _e.mock.On("FileUnassign", ctx, productFile)}
 }
 
-func (_c *MockIProductRepository_FileUnassign_Call) Run(run func(ctx context.Context, productFile model.ProductFile)) *MockIProductRepository_FileUnassign_Call {
+func (_c *MockIProductRepository_FileUnassign_Call) Run(run func(ctx context.Context, productFile *model.ProductFile)) *MockIProductRepository_FileUnassign_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 model.ProductFile
+		var arg1 *model.ProductFile
 		if args[1] != nil {
-			arg1 = args[1].(model.ProductFile)
+			arg1 = args[1].(*model.ProductFile)
 		}
 		run(
 			arg0,
@@ -513,7 +513,7 @@ func (_c *MockIProductRepository_FileUnassign_Call) Return(err error) *MockIProd
 	return _c
 }
 
-func (_c *MockIProductRepository_FileUnassign_Call) RunAndReturn(run func(ctx context.Context, productFile model.ProductFile) error) *MockIProductRepository_FileUnassign_Call {
+func (_c *MockIProductRepository_FileUnassign_Call) RunAndReturn(run func(ctx context.Context, productFile *model.ProductFile) error) *MockIProductRepository_FileUnassign_Call {
 	_c.Call.Return(run)
 	return _c
 }
@@ -737,7 +737,7 @@ func (_c *MockIProductRepository_List_Call) RunAndReturn(run func(ctx context.Co
 }
 
 // TagAssign provides a mock function for the type MockIProductRepository
-func (_mock *MockIProductRepository) TagAssign(ctx context.Context, productTag model.ProductTag) error {
+func (_mock *MockIProductRepository) TagAssign(ctx context.Context, productTag *model.ProductTag) error {
 	ret := _mock.Called(ctx, productTag)
 
 	if len(ret) == 0 {
@@ -745,7 +745,7 @@ func (_mock *MockIProductRepository) TagAssign(ctx context.Context, productTag m
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, model.ProductTag) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *model.ProductTag) error); ok {
 		r0 = returnFunc(ctx, productTag)
 	} else {
 		r0 = ret.Error(0)
@@ -760,20 +760,20 @@ type MockIProductRepository_TagAssign_Call struct {
 
 // TagAssign is a helper method to define mock.On call
 //   - ctx context.Context
-//   - productTag model.ProductTag
+//   - productTag *model.ProductTag
 func (_e *MockIProductRepository_Expecter) TagAssign(ctx any, productTag any) *MockIProductRepository_TagAssign_Call {
 	return &MockIProductRepository_TagAssign_Call{Call: _e.mock.On("TagAssign", ctx, productTag)}
 }
 
-func (_c *MockIProductRepository_TagAssign_Call) Run(run func(ctx context.Context, productTag model.ProductTag)) *MockIProductRepository_TagAssign_Call {
+func (_c *MockIProductRepository_TagAssign_Call) Run(run func(ctx context.Context, productTag *model.ProductTag)) *MockIProductRepository_TagAssign_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 model.ProductTag
+		var arg1 *model.ProductTag
 		if args[1] != nil {
-			arg1 = args[1].(model.ProductTag)
+			arg1 = args[1].(*model.ProductTag)
 		}
 		run(
 			arg0,
@@ -788,7 +788,7 @@ func (_c *MockIProductRepository_TagAssign_Call) Return(err error) *MockIProduct
 	return _c
 }
 
-func (_c *MockIProductRepository_TagAssign_Call) RunAndReturn(run func(ctx context.Context, productTag model.ProductTag) error) *MockIProductRepository_TagAssign_Call {
+func (_c *MockIProductRepository_TagAssign_Call) RunAndReturn(run func(ctx context.Context, productTag *model.ProductTag) error) *MockIProductRepository_TagAssign_Call {
 	_c.Call.Return(run)
 	return _c
 }
@@ -862,7 +862,7 @@ func (_c *MockIProductRepository_TagListByProductID_Call) RunAndReturn(run func(
 }
 
 // TagUnassign provides a mock function for the type MockIProductRepository
-func (_mock *MockIProductRepository) TagUnassign(ctx context.Context, productTag model.ProductTag) error {
+func (_mock *MockIProductRepository) TagUnassign(ctx context.Context, productTag *model.ProductTag) error {
 	ret := _mock.Called(ctx, productTag)
 
 	if len(ret) == 0 {
@@ -870,7 +870,7 @@ func (_mock *MockIProductRepository) TagUnassign(ctx context.Context, productTag
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, model.ProductTag) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *model.ProductTag) error); ok {
 		r0 = returnFunc(ctx, productTag)
 	} else {
 		r0 = ret.Error(0)
@@ -885,20 +885,20 @@ type MockIProductRepository_TagUnassign_Call struct {
 
 // TagUnassign is a helper method to define mock.On call
 //   - ctx context.Context
-//   - productTag model.ProductTag
+//   - productTag *model.ProductTag
 func (_e *MockIProductRepository_Expecter) TagUnassign(ctx any, productTag any) *MockIProductRepository_TagUnassign_Call {
 	return &MockIProductRepository_TagUnassign_Call{Call: _e.mock.On("TagUnassign", ctx, productTag)}
 }
 
-func (_c *MockIProductRepository_TagUnassign_Call) Run(run func(ctx context.Context, productTag model.ProductTag)) *MockIProductRepository_TagUnassign_Call {
+func (_c *MockIProductRepository_TagUnassign_Call) Run(run func(ctx context.Context, productTag *model.ProductTag)) *MockIProductRepository_TagUnassign_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 model.ProductTag
+		var arg1 *model.ProductTag
 		if args[1] != nil {
-			arg1 = args[1].(model.ProductTag)
+			arg1 = args[1].(*model.ProductTag)
 		}
 		run(
 			arg0,
@@ -913,13 +913,13 @@ func (_c *MockIProductRepository_TagUnassign_Call) Return(err error) *MockIProdu
 	return _c
 }
 
-func (_c *MockIProductRepository_TagUnassign_Call) RunAndReturn(run func(ctx context.Context, productTag model.ProductTag) error) *MockIProductRepository_TagUnassign_Call {
+func (_c *MockIProductRepository_TagUnassign_Call) RunAndReturn(run func(ctx context.Context, productTag *model.ProductTag) error) *MockIProductRepository_TagUnassign_Call {
 	_c.Call.Return(run)
 	return _c
 }
 
 // Update provides a mock function for the type MockIProductRepository
-func (_mock *MockIProductRepository) Update(ctx context.Context, product model.Product) error {
+func (_mock *MockIProductRepository) Update(ctx context.Context, product *model.Product) error {
 	ret := _mock.Called(ctx, product)
 
 	if len(ret) == 0 {
@@ -927,7 +927,7 @@ func (_mock *MockIProductRepository) Update(ctx context.Context, product model.P
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, model.Product) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *model.Product) error); ok {
 		r0 = returnFunc(ctx, product)
 	} else {
 		r0 = ret.Error(0)
@@ -942,20 +942,20 @@ type MockIProductRepository_Update_Call struct {
 
 // Update is a helper method to define mock.On call
 //   - ctx context.Context
-//   - product model.Product
+//   - product *model.Product
 func (_e *MockIProductRepository_Expecter) Update(ctx any, product any) *MockIProductRepository_Update_Call {
 	return &MockIProductRepository_Update_Call{Call: _e.mock.On("Update", ctx, product)}
 }
 
-func (_c *MockIProductRepository_Update_Call) Run(run func(ctx context.Context, product model.Product)) *MockIProductRepository_Update_Call {
+func (_c *MockIProductRepository_Update_Call) Run(run func(ctx context.Context, product *model.Product)) *MockIProductRepository_Update_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 model.Product
+		var arg1 *model.Product
 		if args[1] != nil {
-			arg1 = args[1].(model.Product)
+			arg1 = args[1].(*model.Product)
 		}
 		run(
 			arg0,
@@ -970,7 +970,7 @@ func (_c *MockIProductRepository_Update_Call) Return(err error) *MockIProductRep
 	return _c
 }
 
-func (_c *MockIProductRepository_Update_Call) RunAndReturn(run func(ctx context.Context, product model.Product) error) *MockIProductRepository_Update_Call {
+func (_c *MockIProductRepository_Update_Call) RunAndReturn(run func(ctx context.Context, product *model.Product) error) *MockIProductRepository_Update_Call {
 	_c.Call.Return(run)
 	return _c
 }

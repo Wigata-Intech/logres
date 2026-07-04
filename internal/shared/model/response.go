@@ -13,16 +13,27 @@ import (
 
 type (
 	AdminSetupResponse struct {
+		Message string `json:"message"`
 	}
 
-	// TODO: RFC Standard for Authorization Server / Authentication / Oauth
+	// AdminTokenResponse is the RFC 6749 §5.1 access-token payload.
 	AdminTokenResponse struct {
+		AccessToken  string `json:"access_token"`
+		TokenType    string `json:"token_type"`
+		ExpiresIn    int    `json:"expires_in"`
+		RefreshToken string `json:"refresh_token"`
 	}
 
 	AdminForgotPasswordResponse struct {
+		Message string `json:"message"`
 	}
 
 	AdminChangePasswordResponse struct {
+		Message string `json:"message"`
+	}
+
+	AdminResetPasswordResponse struct {
+		Message string `json:"message"`
 	}
 )
 

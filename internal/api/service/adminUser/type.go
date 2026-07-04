@@ -40,6 +40,10 @@ func (s *adminUserService) ForgotPassword(ctx context.Context, req *model.AdminF
 	panic("not implemented") // TODO: Implement
 }
 
+func (s *adminUserService) ResetPassword(ctx context.Context, req *model.AdminResetPasswordRequest) (*model.AdminResetPasswordResponse, error) {
+	panic("not implemented") // TODO: Implement
+}
+
 func (s *adminUserService) ChangePassword(ctx context.Context, req *model.AdminChangePasswordRequest) (*model.AdminChangePasswordResponse, error) {
 	panic("not implemented") // TODO: Implement
 }

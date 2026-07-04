@@ -1,4 +1,4 @@
-package refreshToken
+package adminRefreshToken
 
 import (
 	"context"
@@ -7,8 +7,8 @@ import (
 	"github.com/wigata-intech/logres/internal/api/model"
 )
 
-func (r *refreshTokenRepository) Insert(ctx context.Context, token *model.RefreshToken) error {
-	_, err := r.db.ExecContext(ctx, insertRefreshToken,
+func (r *adminRefreshTokenRepository) Insert(ctx context.Context, token *model.AdminRefreshToken) error {
+	_, err := r.db.ExecContext(ctx, insertAdminRefreshToken,
 		token.ID,
 		token.AdminUserID,
 		token.TokenHash,
@@ -21,7 +21,7 @@ func (r *refreshTokenRepository) Insert(ctx context.Context, token *model.Refres
 		token.LastUsedAt,
 	)
 	if err != nil {
-		return fmt.Errorf("refreshTokenRepository.Insert: %w", err)
+		return fmt.Errorf("adminRefreshTokenRepository.Insert: %w", err)
 	}
 	return nil
 }

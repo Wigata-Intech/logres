@@ -11,6 +11,7 @@ type IAdminUserService interface {
 	Login(ctx context.Context, req *model.AdminLoginRequest) (*model.AdminTokenResponse, error)
 	RefreshToken(ctx context.Context, req *model.AdminRefreshTokenRequest) (*model.AdminTokenResponse, error)
 	ForgotPassword(ctx context.Context, req *model.AdminForgotPasswordRequest) (*model.AdminForgotPasswordResponse, error)
+	ResetPassword(ctx context.Context, req *model.AdminResetPasswordRequest) (*model.AdminResetPasswordResponse, error)
 	ChangePassword(ctx context.Context, req *model.AdminChangePasswordRequest) (*model.AdminChangePasswordResponse, error)
 }
 

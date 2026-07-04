@@ -41,7 +41,7 @@ func (_m *MockICartRepository) EXPECT() *MockICartRepository_Expecter {
 }
 
 // Delete provides a mock function for the type MockICartRepository
-func (_mock *MockICartRepository) Delete(ctx context.Context, cart model.Cart) error {
+func (_mock *MockICartRepository) Delete(ctx context.Context, cart *model.Cart) error {
 	ret := _mock.Called(ctx, cart)
 
 	if len(ret) == 0 {
@@ -49,7 +49,7 @@ func (_mock *MockICartRepository) Delete(ctx context.Context, cart model.Cart) e
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, model.Cart) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *model.Cart) error); ok {
 		r0 = returnFunc(ctx, cart)
 	} else {
 		r0 = ret.Error(0)
@@ -64,20 +64,20 @@ type MockICartRepository_Delete_Call struct {
 
 // Delete is a helper method to define mock.On call
 //   - ctx context.Context
-//   - cart model.Cart
+//   - cart *model.Cart
 func (_e *MockICartRepository_Expecter) Delete(ctx any, cart any) *MockICartRepository_Delete_Call {
 	return &MockICartRepository_Delete_Call{Call: _e.mock.On("Delete", ctx, cart)}
 }
 
-func (_c *MockICartRepository_Delete_Call) Run(run func(ctx context.Context, cart model.Cart)) *MockICartRepository_Delete_Call {
+func (_c *MockICartRepository_Delete_Call) Run(run func(ctx context.Context, cart *model.Cart)) *MockICartRepository_Delete_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 model.Cart
+		var arg1 *model.Cart
 		if args[1] != nil {
-			arg1 = args[1].(model.Cart)
+			arg1 = args[1].(*model.Cart)
 		}
 		run(
 			arg0,
@@ -92,7 +92,7 @@ func (_c *MockICartRepository_Delete_Call) Return(err error) *MockICartRepositor
 	return _c
 }
 
-func (_c *MockICartRepository_Delete_Call) RunAndReturn(run func(ctx context.Context, cart model.Cart) error) *MockICartRepository_Delete_Call {
+func (_c *MockICartRepository_Delete_Call) RunAndReturn(run func(ctx context.Context, cart *model.Cart) error) *MockICartRepository_Delete_Call {
 	_c.Call.Return(run)
 	return _c
 }
@@ -166,7 +166,7 @@ func (_c *MockICartRepository_GetByIdentifierID_Call) RunAndReturn(run func(ctx 
 }
 
 // Insert provides a mock function for the type MockICartRepository
-func (_mock *MockICartRepository) Insert(ctx context.Context, cart model.Cart) error {
+func (_mock *MockICartRepository) Insert(ctx context.Context, cart *model.Cart) error {
 	ret := _mock.Called(ctx, cart)
 
 	if len(ret) == 0 {
@@ -174,7 +174,7 @@ func (_mock *MockICartRepository) Insert(ctx context.Context, cart model.Cart) e
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, model.Cart) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *model.Cart) error); ok {
 		r0 = returnFunc(ctx, cart)
 	} else {
 		r0 = ret.Error(0)
@@ -189,20 +189,20 @@ type MockICartRepository_Insert_Call struct {
 
 // Insert is a helper method to define mock.On call
 //   - ctx context.Context
-//   - cart model.Cart
+//   - cart *model.Cart
 func (_e *MockICartRepository_Expecter) Insert(ctx any, cart any) *MockICartRepository_Insert_Call {
 	return &MockICartRepository_Insert_Call{Call: _e.mock.On("Insert", ctx, cart)}
 }
 
-func (_c *MockICartRepository_Insert_Call) Run(run func(ctx context.Context, cart model.Cart)) *MockICartRepository_Insert_Call {
+func (_c *MockICartRepository_Insert_Call) Run(run func(ctx context.Context, cart *model.Cart)) *MockICartRepository_Insert_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 model.Cart
+		var arg1 *model.Cart
 		if args[1] != nil {
-			arg1 = args[1].(model.Cart)
+			arg1 = args[1].(*model.Cart)
 		}
 		run(
 			arg0,
@@ -217,7 +217,7 @@ func (_c *MockICartRepository_Insert_Call) Return(err error) *MockICartRepositor
 	return _c
 }
 
-func (_c *MockICartRepository_Insert_Call) RunAndReturn(run func(ctx context.Context, cart model.Cart) error) *MockICartRepository_Insert_Call {
+func (_c *MockICartRepository_Insert_Call) RunAndReturn(run func(ctx context.Context, cart *model.Cart) error) *MockICartRepository_Insert_Call {
 	_c.Call.Return(run)
 	return _c
 }
@@ -305,7 +305,7 @@ func (_c *MockICartRepository_List_Call) RunAndReturn(run func(ctx context.Conte
 }
 
 // Update provides a mock function for the type MockICartRepository
-func (_mock *MockICartRepository) Update(ctx context.Context, cart model.Cart) error {
+func (_mock *MockICartRepository) Update(ctx context.Context, cart *model.Cart) error {
 	ret := _mock.Called(ctx, cart)
 
 	if len(ret) == 0 {
@@ -313,7 +313,7 @@ func (_mock *MockICartRepository) Update(ctx context.Context, cart model.Cart) e
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, model.Cart) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *model.Cart) error); ok {
 		r0 = returnFunc(ctx, cart)
 	} else {
 		r0 = ret.Error(0)
@@ -328,20 +328,20 @@ type MockICartRepository_Update_Call struct {
 
 // Update is a helper method to define mock.On call
 //   - ctx context.Context
-//   - cart model.Cart
+//   - cart *model.Cart
 func (_e *MockICartRepository_Expecter) Update(ctx any, cart any) *MockICartRepository_Update_Call {
 	return &MockICartRepository_Update_Call{Call: _e.mock.On("Update", ctx, cart)}
 }
 
-func (_c *MockICartRepository_Update_Call) Run(run func(ctx context.Context, cart model.Cart)) *MockICartRepository_Update_Call {
+func (_c *MockICartRepository_Update_Call) Run(run func(ctx context.Context, cart *model.Cart)) *MockICartRepository_Update_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 model.Cart
+		var arg1 *model.Cart
 		if args[1] != nil {
-			arg1 = args[1].(model.Cart)
+			arg1 = args[1].(*model.Cart)
 		}
 		run(
 			arg0,
@@ -356,7 +356,7 @@ func (_c *MockICartRepository_Update_Call) Return(err error) *MockICartRepositor
 	return _c
 }
 
-func (_c *MockICartRepository_Update_Call) RunAndReturn(run func(ctx context.Context, cart model.Cart) error) *MockICartRepository_Update_Call {
+func (_c *MockICartRepository_Update_Call) RunAndReturn(run func(ctx context.Context, cart *model.Cart) error) *MockICartRepository_Update_Call {
 	_c.Call.Return(run)
 	return _c
 }

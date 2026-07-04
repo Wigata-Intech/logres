@@ -1,4 +1,4 @@
-package refreshToken_test
+package adminRefreshToken_test
 
 import (
 	"context"
@@ -12,7 +12,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/wigata-intech/logres/internal/api/repository/refreshToken"
+	"github.com/wigata-intech/logres/internal/api/repository/adminRefreshToken"
 	"github.com/wigata-intech/logres/internal/shared/dbx"
 )
 
@@ -88,7 +88,7 @@ func TestRotate(t *testing.T) {
 
 			tc.setup(mock)
 
-			repo := refreshToken.New(db, slog.New(slog.NewTextHandler(io.Discard, nil)))
+			repo := adminRefreshToken.New(db, slog.New(slog.NewTextHandler(io.Discard, nil)))
 			err = repo.Rotate(context.Background(), oldID, newID)
 
 			if tc.wantErr != nil {
@@ -152,7 +152,7 @@ func TestRevokeFamily(t *testing.T) {
 
 			tc.setup(mock)
 
-			repo := refreshToken.New(db, slog.New(slog.NewTextHandler(io.Discard, nil)))
+			repo := adminRefreshToken.New(db, slog.New(slog.NewTextHandler(io.Discard, nil)))
 			err = repo.RevokeFamily(context.Background(), familyID)
 
 			if tc.wantErr != nil {
@@ -216,7 +216,7 @@ func TestRevokeAllForUser(t *testing.T) {
 
 			tc.setup(mock)
 
-			repo := refreshToken.New(db, slog.New(slog.NewTextHandler(io.Discard, nil)))
+			repo := adminRefreshToken.New(db, slog.New(slog.NewTextHandler(io.Discard, nil)))
 			err = repo.RevokeAllForUser(context.Background(), adminUserID)
 
 			if tc.wantErr != nil {

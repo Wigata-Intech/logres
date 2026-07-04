@@ -9,6 +9,8 @@ packages:
       filename: "{{.InterfaceName}}.go"
     interfaces:
       IAdminUserRepository:
+      IAdminPasswordResetRepository:
+      IAdminRefreshTokenRepository:
       ICartRepository:
       ICategoryRepository:
       IFileRepository:

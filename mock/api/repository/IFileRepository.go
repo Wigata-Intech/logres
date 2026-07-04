@@ -41,7 +41,7 @@ func (_m *MockIFileRepository) EXPECT() *MockIFileRepository_Expecter {
 }
 
 // Delete provides a mock function for the type MockIFileRepository
-func (_mock *MockIFileRepository) Delete(ctx context.Context, file model.File) error {
+func (_mock *MockIFileRepository) Delete(ctx context.Context, file *model.File) error {
 	ret := _mock.Called(ctx, file)
 
 	if len(ret) == 0 {
@@ -49,7 +49,7 @@ func (_mock *MockIFileRepository) Delete(ctx context.Context, file model.File) e
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, model.File) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *model.File) error); ok {
 		r0 = returnFunc(ctx, file)
 	} else {
 		r0 = ret.Error(0)
@@ -64,20 +64,20 @@ type MockIFileRepository_Delete_Call struct {
 
 // Delete is a helper method to define mock.On call
 //   - ctx context.Context
-//   - file model.File
+//   - file *model.File
 func (_e *MockIFileRepository_Expecter) Delete(ctx any, file any) *MockIFileRepository_Delete_Call {
 	return &MockIFileRepository_Delete_Call{Call: _e.mock.On("Delete", ctx, file)}
 }
 
-func (_c *MockIFileRepository_Delete_Call) Run(run func(ctx context.Context, file model.File)) *MockIFileRepository_Delete_Call {
+func (_c *MockIFileRepository_Delete_Call) Run(run func(ctx context.Context, file *model.File)) *MockIFileRepository_Delete_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 model.File
+		var arg1 *model.File
 		if args[1] != nil {
-			arg1 = args[1].(model.File)
+			arg1 = args[1].(*model.File)
 		}
 		run(
 			arg0,
@@ -92,7 +92,7 @@ func (_c *MockIFileRepository_Delete_Call) Return(err error) *MockIFileRepositor
 	return _c
 }
 
-func (_c *MockIFileRepository_Delete_Call) RunAndReturn(run func(ctx context.Context, file model.File) error) *MockIFileRepository_Delete_Call {
+func (_c *MockIFileRepository_Delete_Call) RunAndReturn(run func(ctx context.Context, file *model.File) error) *MockIFileRepository_Delete_Call {
 	_c.Call.Return(run)
 	return _c
 }
@@ -166,7 +166,7 @@ func (_c *MockIFileRepository_GetByID_Call) RunAndReturn(run func(ctx context.Co
 }
 
 // Insert provides a mock function for the type MockIFileRepository
-func (_mock *MockIFileRepository) Insert(ctx context.Context, file model.File) error {
+func (_mock *MockIFileRepository) Insert(ctx context.Context, file *model.File) error {
 	ret := _mock.Called(ctx, file)
 
 	if len(ret) == 0 {
@@ -174,7 +174,7 @@ func (_mock *MockIFileRepository) Insert(ctx context.Context, file model.File) e
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, model.File) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *model.File) error); ok {
 		r0 = returnFunc(ctx, file)
 	} else {
 		r0 = ret.Error(0)
@@ -189,20 +189,20 @@ type MockIFileRepository_Insert_Call struct {
 
 // Insert is a helper method to define mock.On call
 //   - ctx context.Context
-//   - file model.File
+//   - file *model.File
 func (_e *MockIFileRepository_Expecter) Insert(ctx any, file any) *MockIFileRepository_Insert_Call {
 	return &MockIFileRepository_Insert_Call{Call: _e.mock.On("Insert", ctx, file)}
 }
 
-func (_c *MockIFileRepository_Insert_Call) Run(run func(ctx context.Context, file model.File)) *MockIFileRepository_Insert_Call {
+func (_c *MockIFileRepository_Insert_Call) Run(run func(ctx context.Context, file *model.File)) *MockIFileRepository_Insert_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 model.File
+		var arg1 *model.File
 		if args[1] != nil {
-			arg1 = args[1].(model.File)
+			arg1 = args[1].(*model.File)
 		}
 		run(
 			arg0,
@@ -217,7 +217,7 @@ func (_c *MockIFileRepository_Insert_Call) Return(err error) *MockIFileRepositor
 	return _c
 }
 
-func (_c *MockIFileRepository_Insert_Call) RunAndReturn(run func(ctx context.Context, file model.File) error) *MockIFileRepository_Insert_Call {
+func (_c *MockIFileRepository_Insert_Call) RunAndReturn(run func(ctx context.Context, file *model.File) error) *MockIFileRepository_Insert_Call {
 	_c.Call.Return(run)
 	return _c
 }
@@ -305,7 +305,7 @@ func (_c *MockIFileRepository_List_Call) RunAndReturn(run func(ctx context.Conte
 }
 
 // Update provides a mock function for the type MockIFileRepository
-func (_mock *MockIFileRepository) Update(ctx context.Context, file model.File) error {
+func (_mock *MockIFileRepository) Update(ctx context.Context, file *model.File) error {
 	ret := _mock.Called(ctx, file)
 
 	if len(ret) == 0 {
@@ -313,7 +313,7 @@ func (_mock *MockIFileRepository) Update(ctx context.Context, file model.File) e
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, model.File) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *model.File) error); ok {
 		r0 = returnFunc(ctx, file)
 	} else {
 		r0 = ret.Error(0)
@@ -328,20 +328,20 @@ type MockIFileRepository_Update_Call struct {
 
 // Update is a helper method to define mock.On call
 //   - ctx context.Context
-//   - file model.File
+//   - file *model.File
 func (_e *MockIFileRepository_Expecter) Update(ctx any, file any) *MockIFileRepository_Update_Call {
 	return &MockIFileRepository_Update_Call{Call: _e.mock.On("Update", ctx, file)}
 }
 
-func (_c *MockIFileRepository_Update_Call) Run(run func(ctx context.Context, file model.File)) *MockIFileRepository_Update_Call {
+func (_c *MockIFileRepository_Update_Call) Run(run func(ctx context.Context, file *model.File)) *MockIFileRepository_Update_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 model.File
+		var arg1 *model.File
 		if args[1] != nil {
-			arg1 = args[1].(model.File)
+			arg1 = args[1].(*model.File)
 		}
 		run(
 			arg0,
@@ -356,7 +356,7 @@ func (_c *MockIFileRepository_Update_Call) Return(err error) *MockIFileRepositor
 	return _c
 }
 
-func (_c *MockIFileRepository_Update_Call) RunAndReturn(run func(ctx context.Context, file model.File) error) *MockIFileRepository_Update_Call {
+func (_c *MockIFileRepository_Update_Call) RunAndReturn(run func(ctx context.Context, file *model.File) error) *MockIFileRepository_Update_Call {
 	_c.Call.Return(run)
 	return _c
 }

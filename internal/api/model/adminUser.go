@@ -20,9 +20,13 @@ type AdminUser struct {
 	DeletedAt   *time.Time               `json:"deleted_at,omitempty" db:"deleted_at"`
 }
 
-func NewADminUser(
-	fullName, email string,
-) (*AdminUser, error) {
+// IsActive reports whether the account may authenticate. Fetch paths already
+// exclude soft-deleted rows, so status is the only remaining gate.
+func (u *AdminUser) IsActive() bool {
+	return u.Status == constant.AdminUserStatusActive
+}
+
+func NewAdminUser(fullName, email string) (*AdminUser, error) {
 	id, err := uuid.NewV7()
 	if err != nil {
 		return nil, err

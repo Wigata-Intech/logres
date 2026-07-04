@@ -40,7 +40,7 @@ func (_m *MockICategoryRepository) EXPECT() *MockICategoryRepository_Expecter {
 }
 
 // Create provides a mock function for the type MockICategoryRepository
-func (_mock *MockICategoryRepository) Create(ctx context.Context, category model.Category) error {
+func (_mock *MockICategoryRepository) Create(ctx context.Context, category *model.Category) error {
 	ret := _mock.Called(ctx, category)
 
 	if len(ret) == 0 {
@@ -48,7 +48,7 @@ func (_mock *MockICategoryRepository) Create(ctx context.Context, category model
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, model.Category) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *model.Category) error); ok {
 		r0 = returnFunc(ctx, category)
 	} else {
 		r0 = ret.Error(0)
@@ -63,20 +63,20 @@ type MockICategoryRepository_Create_Call struct {
 
 // Create is a helper method to define mock.On call
 //   - ctx context.Context
-//   - category model.Category
+//   - category *model.Category
 func (_e *MockICategoryRepository_Expecter) Create(ctx any, category any) *MockICategoryRepository_Create_Call {
 	return &MockICategoryRepository_Create_Call{Call: _e.mock.On("Create", ctx, category)}
 }
 
-func (_c *MockICategoryRepository_Create_Call) Run(run func(ctx context.Context, category model.Category)) *MockICategoryRepository_Create_Call {
+func (_c *MockICategoryRepository_Create_Call) Run(run func(ctx context.Context, category *model.Category)) *MockICategoryRepository_Create_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 model.Category
+		var arg1 *model.Category
 		if args[1] != nil {
-			arg1 = args[1].(model.Category)
+			arg1 = args[1].(*model.Category)
 		}
 		run(
 			arg0,
@@ -91,13 +91,13 @@ func (_c *MockICategoryRepository_Create_Call) Return(err error) *MockICategoryR
 	return _c
 }
 
-func (_c *MockICategoryRepository_Create_Call) RunAndReturn(run func(ctx context.Context, category model.Category) error) *MockICategoryRepository_Create_Call {
+func (_c *MockICategoryRepository_Create_Call) RunAndReturn(run func(ctx context.Context, category *model.Category) error) *MockICategoryRepository_Create_Call {
 	_c.Call.Return(run)
 	return _c
 }
 
 // Delete provides a mock function for the type MockICategoryRepository
-func (_mock *MockICategoryRepository) Delete(ctx context.Context, category model.Category) error {
+func (_mock *MockICategoryRepository) Delete(ctx context.Context, category *model.Category) error {
 	ret := _mock.Called(ctx, category)
 
 	if len(ret) == 0 {
@@ -105,7 +105,7 @@ func (_mock *MockICategoryRepository) Delete(ctx context.Context, category model
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, model.Category) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *model.Category) error); ok {
 		r0 = returnFunc(ctx, category)
 	} else {
 		r0 = ret.Error(0)
@@ -120,20 +120,20 @@ type MockICategoryRepository_Delete_Call struct {
 
 // Delete is a helper method to define mock.On call
 //   - ctx context.Context
-//   - category model.Category
+//   - category *model.Category
 func (_e *MockICategoryRepository_Expecter) Delete(ctx any, category any) *MockICategoryRepository_Delete_Call {
 	return &MockICategoryRepository_Delete_Call{Call: _e.mock.On("Delete", ctx, category)}
 }
 
-func (_c *MockICategoryRepository_Delete_Call) Run(run func(ctx context.Context, category model.Category)) *MockICategoryRepository_Delete_Call {
+func (_c *MockICategoryRepository_Delete_Call) Run(run func(ctx context.Context, category *model.Category)) *MockICategoryRepository_Delete_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 model.Category
+		var arg1 *model.Category
 		if args[1] != nil {
-			arg1 = args[1].(model.Category)
+			arg1 = args[1].(*model.Category)
 		}
 		run(
 			arg0,
@@ -148,7 +148,7 @@ func (_c *MockICategoryRepository_Delete_Call) Return(err error) *MockICategoryR
 	return _c
 }
 
-func (_c *MockICategoryRepository_Delete_Call) RunAndReturn(run func(ctx context.Context, category model.Category) error) *MockICategoryRepository_Delete_Call {
+func (_c *MockICategoryRepository_Delete_Call) RunAndReturn(run func(ctx context.Context, category *model.Category) error) *MockICategoryRepository_Delete_Call {
 	_c.Call.Return(run)
 	return _c
 }
@@ -304,7 +304,7 @@ func (_c *MockICategoryRepository_List_Call) RunAndReturn(run func(ctx context.C
 }
 
 // Update provides a mock function for the type MockICategoryRepository
-func (_mock *MockICategoryRepository) Update(ctx context.Context, category model.Category) error {
+func (_mock *MockICategoryRepository) Update(ctx context.Context, category *model.Category) error {
 	ret := _mock.Called(ctx, category)
 
 	if len(ret) == 0 {
@@ -312,7 +312,7 @@ func (_mock *MockICategoryRepository) Update(ctx context.Context, category model
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, model.Category) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *model.Category) error); ok {
 		r0 = returnFunc(ctx, category)
 	} else {
 		r0 = ret.Error(0)
@@ -327,20 +327,20 @@ type MockICategoryRepository_Update_Call struct {
 
 // Update is a helper method to define mock.On call
 //   - ctx context.Context
-//   - category model.Category
+//   - category *model.Category
 func (_e *MockICategoryRepository_Expecter) Update(ctx any, category any) *MockICategoryRepository_Update_Call {
 	return &MockICategoryRepository_Update_Call{Call: _e.mock.On("Update", ctx, category)}
 }
 
-func (_c *MockICategoryRepository_Update_Call) Run(run func(ctx context.Context, category model.Category)) *MockICategoryRepository_Update_Call {
+func (_c *MockICategoryRepository_Update_Call) Run(run func(ctx context.Context, category *model.Category)) *MockICategoryRepository_Update_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 model.Category
+		var arg1 *model.Category
 		if args[1] != nil {
-			arg1 = args[1].(model.Category)
+			arg1 = args[1].(*model.Category)
 		}
 		run(
 			arg0,
@@ -355,7 +355,7 @@ func (_c *MockICategoryRepository_Update_Call) Return(err error) *MockICategoryR
 	return _c
 }
 
-func (_c *MockICategoryRepository_Update_Call) RunAndReturn(run func(ctx context.Context, category model.Category) error) *MockICategoryRepository_Update_Call {
+func (_c *MockICategoryRepository_Update_Call) RunAndReturn(run func(ctx context.Context, category *model.Category) error) *MockICategoryRepository_Update_Call {
 	_c.Call.Return(run)
 	return _c
 }

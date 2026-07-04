@@ -41,7 +41,7 @@ func (_m *MockITagRepository) EXPECT() *MockITagRepository_Expecter {
 }
 
 // Create provides a mock function for the type MockITagRepository
-func (_mock *MockITagRepository) Create(ctx context.Context, tag model.Tag) error {
+func (_mock *MockITagRepository) Create(ctx context.Context, tag *model.Tag) error {
 	ret := _mock.Called(ctx, tag)
 
 	if len(ret) == 0 {
@@ -49,7 +49,7 @@ func (_mock *MockITagRepository) Create(ctx context.Context, tag model.Tag) erro
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, model.Tag) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *model.Tag) error); ok {
 		r0 = returnFunc(ctx, tag)
 	} else {
 		r0 = ret.Error(0)
@@ -64,20 +64,20 @@ type MockITagRepository_Create_Call struct {
 
 // Create is a helper method to define mock.On call
 //   - ctx context.Context
-//   - tag model.Tag
+//   - tag *model.Tag
 func (_e *MockITagRepository_Expecter) Create(ctx any, tag any) *MockITagRepository_Create_Call {
 	return &MockITagRepository_Create_Call{Call: _e.mock.On("Create", ctx, tag)}
 }
 
-func (_c *MockITagRepository_Create_Call) Run(run func(ctx context.Context, tag model.Tag)) *MockITagRepository_Create_Call {
+func (_c *MockITagRepository_Create_Call) Run(run func(ctx context.Context, tag *model.Tag)) *MockITagRepository_Create_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 model.Tag
+		var arg1 *model.Tag
 		if args[1] != nil {
-			arg1 = args[1].(model.Tag)
+			arg1 = args[1].(*model.Tag)
 		}
 		run(
 			arg0,
@@ -92,13 +92,13 @@ func (_c *MockITagRepository_Create_Call) Return(err error) *MockITagRepository_
 	return _c
 }
 
-func (_c *MockITagRepository_Create_Call) RunAndReturn(run func(ctx context.Context, tag model.Tag) error) *MockITagRepository_Create_Call {
+func (_c *MockITagRepository_Create_Call) RunAndReturn(run func(ctx context.Context, tag *model.Tag) error) *MockITagRepository_Create_Call {
 	_c.Call.Return(run)
 	return _c
 }
 
 // Delete provides a mock function for the type MockITagRepository
-func (_mock *MockITagRepository) Delete(ctx context.Context, tag model.Tag) error {
+func (_mock *MockITagRepository) Delete(ctx context.Context, tag *model.Tag) error {
 	ret := _mock.Called(ctx, tag)
 
 	if len(ret) == 0 {
@@ -106,7 +106,7 @@ func (_mock *MockITagRepository) Delete(ctx context.Context, tag model.Tag) erro
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, model.Tag) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *model.Tag) error); ok {
 		r0 = returnFunc(ctx, tag)
 	} else {
 		r0 = ret.Error(0)
@@ -121,20 +121,20 @@ type MockITagRepository_Delete_Call struct {
 
 // Delete is a helper method to define mock.On call
 //   - ctx context.Context
-//   - tag model.Tag
+//   - tag *model.Tag
 func (_e *MockITagRepository_Expecter) Delete(ctx any, tag any) *MockITagRepository_Delete_Call {
 	return &MockITagRepository_Delete_Call{Call: _e.mock.On("Delete", ctx, tag)}
 }
 
-func (_c *MockITagRepository_Delete_Call) Run(run func(ctx context.Context, tag model.Tag)) *MockITagRepository_Delete_Call {
+func (_c *MockITagRepository_Delete_Call) Run(run func(ctx context.Context, tag *model.Tag)) *MockITagRepository_Delete_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 model.Tag
+		var arg1 *model.Tag
 		if args[1] != nil {
-			arg1 = args[1].(model.Tag)
+			arg1 = args[1].(*model.Tag)
 		}
 		run(
 			arg0,
@@ -149,7 +149,7 @@ func (_c *MockITagRepository_Delete_Call) Return(err error) *MockITagRepository_
 	return _c
 }
 
-func (_c *MockITagRepository_Delete_Call) RunAndReturn(run func(ctx context.Context, tag model.Tag) error) *MockITagRepository_Delete_Call {
+func (_c *MockITagRepository_Delete_Call) RunAndReturn(run func(ctx context.Context, tag *model.Tag) error) *MockITagRepository_Delete_Call {
 	_c.Call.Return(run)
 	return _c
 }
@@ -305,7 +305,7 @@ func (_c *MockITagRepository_List_Call) RunAndReturn(run func(ctx context.Contex
 }
 
 // Update provides a mock function for the type MockITagRepository
-func (_mock *MockITagRepository) Update(ctx context.Context, tag model.Tag) error {
+func (_mock *MockITagRepository) Update(ctx context.Context, tag *model.Tag) error {
 	ret := _mock.Called(ctx, tag)
 
 	if len(ret) == 0 {
@@ -313,7 +313,7 @@ func (_mock *MockITagRepository) Update(ctx context.Context, tag model.Tag) erro
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, model.Tag) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *model.Tag) error); ok {
 		r0 = returnFunc(ctx, tag)
 	} else {
 		r0 = ret.Error(0)
@@ -328,20 +328,20 @@ type MockITagRepository_Update_Call struct {
 
 // Update is a helper method to define mock.On call
 //   - ctx context.Context
-//   - tag model.Tag
+//   - tag *model.Tag
 func (_e *MockITagRepository_Expecter) Update(ctx any, tag any) *MockITagRepository_Update_Call {
 	return &MockITagRepository_Update_Call{Call: _e.mock.On("Update", ctx, tag)}
 }
 
-func (_c *MockITagRepository_Update_Call) Run(run func(ctx context.Context, tag model.Tag)) *MockITagRepository_Update_Call {
+func (_c *MockITagRepository_Update_Call) Run(run func(ctx context.Context, tag *model.Tag)) *MockITagRepository_Update_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 model.Tag
+		var arg1 *model.Tag
 		if args[1] != nil {
-			arg1 = args[1].(model.Tag)
+			arg1 = args[1].(*model.Tag)
 		}
 		run(
 			arg0,
@@ -356,7 +356,7 @@ func (_c *MockITagRepository_Update_Call) Return(err error) *MockITagRepository_
 	return _c
 }
 
-func (_c *MockITagRepository_Update_Call) RunAndReturn(run func(ctx context.Context, tag model.Tag) error) *MockITagRepository_Update_Call {
+func (_c *MockITagRepository_Update_Call) RunAndReturn(run func(ctx context.Context, tag *model.Tag) error) *MockITagRepository_Update_Call {
 	_c.Call.Return(run)
 	return _c
 }

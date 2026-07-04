@@ -1,4 +1,4 @@
-package refreshToken_test
+package adminRefreshToken_test
 
 import (
 	"context"
@@ -15,7 +15,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/wigata-intech/logres/internal/api/model"
-	"github.com/wigata-intech/logres/internal/api/repository/refreshToken"
+	"github.com/wigata-intech/logres/internal/api/repository/adminRefreshToken"
 )
 
 const caseExecErr = "exec error is wrapped"
@@ -34,7 +34,7 @@ const (
 	tokenDeviceLbl = "Chrome on macOS"
 )
 
-func marshalMetadata(t *testing.T, m model.RefreshTokenMetadata) string {
+func marshalMetadata(t *testing.T, m model.AdminRefreshTokenMetadata) string {
 	t.Helper()
 	b, err := json.Marshal(m)
 	require.NoError(t, err)
@@ -56,27 +56,27 @@ func TestCreate(t *testing.T) {
 		errBoom     = errors.New("exec failed")
 	)
 
-	deviceNoLabel := model.RefreshTokenDevice{UserAgent: tokenUserAgent, IPAddress: tokenIPAddress}
-	deviceWithLabel := model.RefreshTokenDevice{UserAgent: tokenUserAgent, IPAddress: tokenIPAddress, DeviceLabel: &deviceLabel}
-	metadataNoLabel := model.RefreshTokenMetadata{Device: deviceNoLabel}
-	metadataWithLabel := model.RefreshTokenMetadata{Device: deviceWithLabel}
+	deviceNoLabel := model.AdminRefreshTokenDevice{UserAgent: tokenUserAgent, IPAddress: tokenIPAddress}
+	deviceWithLabel := model.AdminRefreshTokenDevice{UserAgent: tokenUserAgent, IPAddress: tokenIPAddress, DeviceLabel: &deviceLabel}
+	metadataNoLabel := model.AdminRefreshTokenMetadata{Device: deviceNoLabel}
+	metadataWithLabel := model.AdminRefreshTokenMetadata{Device: deviceWithLabel}
 
 	type testCase struct {
 		name    string
-		input   *model.RefreshToken
-		setup   func(mock sqlmock.Sqlmock, in *model.RefreshToken)
+		input   *model.AdminRefreshToken
+		setup   func(mock sqlmock.Sqlmock, in *model.AdminRefreshToken)
 		wantErr error
 	}
 
 	cases := []testCase{
 		{
 			name: "success with nullable fields absent",
-			input: &model.RefreshToken{
+			input: &model.AdminRefreshToken{
 				ID: fixedID, AdminUserID: adminUserID, TokenHash: tokenHash,
 				FamilyID: familyID, ExpiresAt: expires, CreatedAt: created,
 				Metadata: metadataNoLabel, LastUsedAt: created,
 			},
-			setup: func(mock sqlmock.Sqlmock, in *model.RefreshToken) {
+			setup: func(mock sqlmock.Sqlmock, in *model.AdminRefreshToken) {
 				mock.ExpectExec(wantInsertSQL).WithArgs(
 					in.ID, in.AdminUserID, in.TokenHash, in.FamilyID,
 					in.ReplacedBy, in.ExpiresAt, in.RevokedAt, in.CreatedAt,
@@ -86,13 +86,13 @@ func TestCreate(t *testing.T) {
 		},
 		{
 			name: "success with nullable fields present",
-			input: &model.RefreshToken{
+			input: &model.AdminRefreshToken{
 				ID: fixedID, AdminUserID: adminUserID, TokenHash: tokenHash,
 				FamilyID: familyID, ReplacedBy: &replacedBy, ExpiresAt: expires,
 				RevokedAt: &revoked, CreatedAt: created,
 				Metadata: metadataWithLabel, LastUsedAt: created,
 			},
-			setup: func(mock sqlmock.Sqlmock, in *model.RefreshToken) {
+			setup: func(mock sqlmock.Sqlmock, in *model.AdminRefreshToken) {
 				mock.ExpectExec(wantInsertSQL).WithArgs(
 					in.ID, in.AdminUserID, in.TokenHash, in.FamilyID,
 					in.ReplacedBy, in.ExpiresAt, in.RevokedAt, in.CreatedAt,
@@ -102,12 +102,12 @@ func TestCreate(t *testing.T) {
 		},
 		{
 			name: caseExecErr,
-			input: &model.RefreshToken{
+			input: &model.AdminRefreshToken{
 				ID: fixedID, AdminUserID: adminUserID, TokenHash: tokenHash,
 				FamilyID: familyID, ExpiresAt: expires, CreatedAt: created,
 				Metadata: metadataNoLabel, LastUsedAt: created,
 			},
-			setup: func(mock sqlmock.Sqlmock, _ *model.RefreshToken) {
+			setup: func(mock sqlmock.Sqlmock, _ *model.AdminRefreshToken) {
 				mock.ExpectExec(wantInsertSQL).WillReturnError(errBoom)
 			},
 			wantErr: errBoom,
@@ -124,7 +124,7 @@ func TestCreate(t *testing.T) {
 
 			tc.setup(mock, tc.input)
 
-			repo := refreshToken.New(db, slog.New(slog.NewTextHandler(io.Discard, nil)))
+			repo := adminRefreshToken.New(db, slog.New(slog.NewTextHandler(io.Discard, nil)))
 			err = repo.Insert(context.Background(), tc.input)
 
 			if tc.wantErr != nil {

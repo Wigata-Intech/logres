@@ -14,13 +14,13 @@ type (
 		Password string `json:"password" validate:"required"`
 	}
 
-	// TODO: RFC Standard for Authorization Server / Authentication / Oauth
 	AdminLoginRequest struct {
 		Email    string `json:"email" validate:"required,email"`
 		Password string `json:"password" validate:"required"`
 	}
 
 	AdminRefreshTokenRequest struct {
+		RefreshToken string `json:"refresh_token" validate:"required"`
 	}
 
 	AdminForgotPasswordRequest struct {
@@ -31,6 +31,12 @@ type (
 		UserID      uuid.UUID `json:"user_id" validate:"required"`
 		OldPassword string    `json:"old_password" validate:"required"`
 		NewPassword string    `json:"new_password" validate:"required"`
+	}
+
+	AdminResetPasswordRequest struct {
+		Email       string `json:"email" validate:"required,email"`
+		OTP         string `json:"otp" validate:"required,len=8,numeric"`
+		NewPassword string `json:"new_password" validate:"required"`
 	}
 )
 

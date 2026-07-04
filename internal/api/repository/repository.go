@@ -12,6 +12,7 @@ import (
 type IAdminUserRepository interface {
 	Create(ctx context.Context, adminUser *model.AdminUser) error
 	GetByEmail(ctx context.Context, email string) (*model.AdminUser, error)
+	GetByID(ctx context.Context, id uuid.UUID) (*model.AdminUser, error)
 	Update(ctx context.Context, adminUser *model.AdminUser) error
 	CountAll(ctx context.Context) (int, error)
 }
@@ -24,9 +25,9 @@ type IAdminPasswordResetRepository interface {
 	InvalidateAllForUser(ctx context.Context, adminUserID uuid.UUID, purpose string) error
 }
 
-type IRefreshTokenRepository interface {
-	Insert(ctx context.Context, token *model.RefreshToken) error
-	GetByHash(ctx context.Context, tokenHash string) (*model.RefreshToken, error)
+type IAdminRefreshTokenRepository interface {
+	Insert(ctx context.Context, token *model.AdminRefreshToken) error
+	GetByHash(ctx context.Context, tokenHash string) (*model.AdminRefreshToken, error)
 	Rotate(ctx context.Context, oldID, newID uuid.UUID) error
 	RevokeFamily(ctx context.Context, familyID uuid.UUID) error
 	RevokeAllForUser(ctx context.Context, adminUserID uuid.UUID) error

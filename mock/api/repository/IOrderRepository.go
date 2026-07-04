@@ -41,7 +41,7 @@ func (_m *MockIOrderRepository) EXPECT() *MockIOrderRepository_Expecter {
 }
 
 // Create provides a mock function for the type MockIOrderRepository
-func (_mock *MockIOrderRepository) Create(ctx context.Context, order model.Order) error {
+func (_mock *MockIOrderRepository) Create(ctx context.Context, order *model.Order) error {
 	ret := _mock.Called(ctx, order)
 
 	if len(ret) == 0 {
@@ -49,7 +49,7 @@ func (_mock *MockIOrderRepository) Create(ctx context.Context, order model.Order
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, model.Order) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *model.Order) error); ok {
 		r0 = returnFunc(ctx, order)
 	} else {
 		r0 = ret.Error(0)
@@ -64,20 +64,20 @@ type MockIOrderRepository_Create_Call struct {
 
 // Create is a helper method to define mock.On call
 //   - ctx context.Context
-//   - order model.Order
+//   - order *model.Order
 func (_e *MockIOrderRepository_Expecter) Create(ctx any, order any) *MockIOrderRepository_Create_Call {
 	return &MockIOrderRepository_Create_Call{Call: _e.mock.On("Create", ctx, order)}
 }
 
-func (_c *MockIOrderRepository_Create_Call) Run(run func(ctx context.Context, order model.Order)) *MockIOrderRepository_Create_Call {
+func (_c *MockIOrderRepository_Create_Call) Run(run func(ctx context.Context, order *model.Order)) *MockIOrderRepository_Create_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 model.Order
+		var arg1 *model.Order
 		if args[1] != nil {
-			arg1 = args[1].(model.Order)
+			arg1 = args[1].(*model.Order)
 		}
 		run(
 			arg0,
@@ -92,13 +92,13 @@ func (_c *MockIOrderRepository_Create_Call) Return(err error) *MockIOrderReposit
 	return _c
 }
 
-func (_c *MockIOrderRepository_Create_Call) RunAndReturn(run func(ctx context.Context, order model.Order) error) *MockIOrderRepository_Create_Call {
+func (_c *MockIOrderRepository_Create_Call) RunAndReturn(run func(ctx context.Context, order *model.Order) error) *MockIOrderRepository_Create_Call {
 	_c.Call.Return(run)
 	return _c
 }
 
 // Delete provides a mock function for the type MockIOrderRepository
-func (_mock *MockIOrderRepository) Delete(ctx context.Context, order model.Order) error {
+func (_mock *MockIOrderRepository) Delete(ctx context.Context, order *model.Order) error {
 	ret := _mock.Called(ctx, order)
 
 	if len(ret) == 0 {
@@ -106,7 +106,7 @@ func (_mock *MockIOrderRepository) Delete(ctx context.Context, order model.Order
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, model.Order) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *model.Order) error); ok {
 		r0 = returnFunc(ctx, order)
 	} else {
 		r0 = ret.Error(0)
@@ -121,20 +121,20 @@ type MockIOrderRepository_Delete_Call struct {
 
 // Delete is a helper method to define mock.On call
 //   - ctx context.Context
-//   - order model.Order
+//   - order *model.Order
 func (_e *MockIOrderRepository_Expecter) Delete(ctx any, order any) *MockIOrderRepository_Delete_Call {
 	return &MockIOrderRepository_Delete_Call{Call: _e.mock.On("Delete", ctx, order)}
 }
 
-func (_c *MockIOrderRepository_Delete_Call) Run(run func(ctx context.Context, order model.Order)) *MockIOrderRepository_Delete_Call {
+func (_c *MockIOrderRepository_Delete_Call) Run(run func(ctx context.Context, order *model.Order)) *MockIOrderRepository_Delete_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 model.Order
+		var arg1 *model.Order
 		if args[1] != nil {
-			arg1 = args[1].(model.Order)
+			arg1 = args[1].(*model.Order)
 		}
 		run(
 			arg0,
@@ -149,7 +149,7 @@ func (_c *MockIOrderRepository_Delete_Call) Return(err error) *MockIOrderReposit
 	return _c
 }
 
-func (_c *MockIOrderRepository_Delete_Call) RunAndReturn(run func(ctx context.Context, order model.Order) error) *MockIOrderRepository_Delete_Call {
+func (_c *MockIOrderRepository_Delete_Call) RunAndReturn(run func(ctx context.Context, order *model.Order) error) *MockIOrderRepository_Delete_Call {
 	_c.Call.Return(run)
 	return _c
 }
@@ -305,7 +305,7 @@ func (_c *MockIOrderRepository_List_Call) RunAndReturn(run func(ctx context.Cont
 }
 
 // Update provides a mock function for the type MockIOrderRepository
-func (_mock *MockIOrderRepository) Update(ctx context.Context, order model.Order) error {
+func (_mock *MockIOrderRepository) Update(ctx context.Context, order *model.Order) error {
 	ret := _mock.Called(ctx, order)
 
 	if len(ret) == 0 {
@@ -313,7 +313,7 @@ func (_mock *MockIOrderRepository) Update(ctx context.Context, order model.Order
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, model.Order) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *model.Order) error); ok {
 		r0 = returnFunc(ctx, order)
 	} else {
 		r0 = ret.Error(0)
@@ -328,20 +328,20 @@ type MockIOrderRepository_Update_Call struct {
 
 // Update is a helper method to define mock.On call
 //   - ctx context.Context
-//   - order model.Order
+//   - order *model.Order
 func (_e *MockIOrderRepository_Expecter) Update(ctx any, order any) *MockIOrderRepository_Update_Call {
 	return &MockIOrderRepository_Update_Call{Call: _e.mock.On("Update", ctx, order)}
 }
 
-func (_c *MockIOrderRepository_Update_Call) Run(run func(ctx context.Context, order model.Order)) *MockIOrderRepository_Update_Call {
+func (_c *MockIOrderRepository_Update_Call) Run(run func(ctx context.Context, order *model.Order)) *MockIOrderRepository_Update_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 model.Order
+		var arg1 *model.Order
 		if args[1] != nil {
-			arg1 = args[1].(model.Order)
+			arg1 = args[1].(*model.Order)
 		}
 		run(
 			arg0,
@@ -356,7 +356,7 @@ func (_c *MockIOrderRepository_Update_Call) Return(err error) *MockIOrderReposit
 	return _c
 }
 
-func (_c *MockIOrderRepository_Update_Call) RunAndReturn(run func(ctx context.Context, order model.Order) error) *MockIOrderRepository_Update_Call {
+func (_c *MockIOrderRepository_Update_Call) RunAndReturn(run func(ctx context.Context, order *model.Order) error) *MockIOrderRepository_Update_Call {
 	_c.Call.Return(run)
 	return _c
 }

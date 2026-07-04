@@ -1,4 +1,4 @@
-package refreshToken
+package adminRefreshToken
 
 import (
 	"context"
@@ -10,9 +10,9 @@ import (
 	"github.com/wigata-intech/logres/internal/shared/dbx"
 )
 
-func (r *refreshTokenRepository) GetByHash(ctx context.Context, tokenHash string) (*model.RefreshToken, error) {
-	var token model.RefreshToken
-	err := r.db.QueryRowContext(ctx, selectRefreshTokenByHash, tokenHash).Scan(
+func (r *adminRefreshTokenRepository) GetByHash(ctx context.Context, tokenHash string) (*model.AdminRefreshToken, error) {
+	var token model.AdminRefreshToken
+	err := r.db.QueryRowContext(ctx, selectAdminRefreshTokenByHash, tokenHash).Scan(
 		&token.ID,
 		&token.AdminUserID,
 		&token.TokenHash,
@@ -28,7 +28,7 @@ func (r *refreshTokenRepository) GetByHash(ctx context.Context, tokenHash string
 		return nil, dbx.ErrNotFound
 	}
 	if err != nil {
-		return nil, fmt.Errorf("refreshTokenRepository.GetByHash: %w", err)
+		return nil, fmt.Errorf("adminRefreshTokenRepository.GetByHash: %w", err)
 	}
 	return &token, nil
 }

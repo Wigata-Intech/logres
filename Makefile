@@ -1,5 +1,6 @@
 # Logres — build & quality automation.
-# Single binary; subcommands select the surface (api / web / webAdmin / migrate).
+# Four independent binaries, one per surface: the CLI (version/migrate), and
+# the api/web/webAdmin HTTP servers — each links only its own deps.
 
 BINARY      := logres
 PKG         := github.com/wigata-intech/logres
@@ -9,11 +10,17 @@ DIST_DIR    := dist
 COVER_FILE  := coverage.out
 COVER_MIN   ?= 80
 
+# name:mainpkg pairs built by `build`/`release`.
+CMDS := logres:. logres-api:./cmd/api logres-web:./cmd/web logres-webadmin:./cmd/webAdmin
+
 # Version metadata stamped into the binary.
 VERSION     ?= $(shell git describe --tags --always --dirty 2>/dev/null || echo dev)
 COMMIT      ?= $(shell git rev-parse --short HEAD 2>/dev/null || echo none)
 DATE        ?= $(shell date -u +%Y-%m-%dT%H:%M:%SZ)
-LDFLAGS     := -s -w -X main.version=$(VERSION) -X main.commit=$(COMMIT) -X main.buildDate=$(DATE)
+LDFLAGS     := -s -w \
+	-X $(PKG)/internal/shared/cli.Version=$(VERSION) \
+	-X $(PKG)/internal/shared/cli.Commit=$(COMMIT) \
+	-X $(PKG)/internal/shared/cli.Date=$(DATE)
 
 # Pinned tool versions (kept out of the module graph to keep the binary lean).
 GOLANGCI_VERSION   := v2.12.2
@@ -107,17 +114,21 @@ cover-html: test
 ci: tidy vet lint vuln sec cover build
 	@echo "CI OK"
 
-## build: build host binary into bin/
+## build: build all 4 host binaries into bin/
 .PHONY: build
 build:
-	CGO_ENABLED=0 $(GO) build -trimpath -ldflags '$(LDFLAGS)' -o $(BIN_DIR)/$(BINARY) $(MAIN)
+	@for pair in $(CMDS); do \
+		name=$${pair%%:*}; mainpkg=$${pair#*:}; \
+		echo "build $$name"; \
+		CGO_ENABLED=0 $(GO) build -trimpath -ldflags '$(LDFLAGS)' -o $(BIN_DIR)/$$name $$mainpkg || exit 1; \
+	done
 
 ## run: build then run (pass ARGS="migrate status")
 .PHONY: run
 run: build
 	$(BIN_DIR)/$(BINARY) $(ARGS)
 
-## release: cross-compile for darwin/linux/windows (amd64+arm64)
+## release: cross-compile all 4 binaries for darwin/linux/windows (amd64+arm64)
 .PHONY: release
 release:
 	@mkdir -p $(DIST_DIR)
@@ -129,9 +140,12 @@ release:
 
 # xbuild,<os>,<arch> — modernc.org/sqlite is pure Go, so CGO stays off.
 define xbuild
-	@echo "build $(1)/$(2)"
-	@GOOS=$(1) GOARCH=$(2) CGO_ENABLED=0 $(GO) build -trimpath -ldflags '$(LDFLAGS)' \
-		-o $(DIST_DIR)/$(BINARY)-$(1)-$(2)$(if $(filter windows,$(1)),.exe,) $(MAIN)
+	@for pair in $(CMDS); do \
+		name=$${pair%%:*}; mainpkg=$${pair#*:}; \
+		echo "build $(1)/$(2) $$name"; \
+		GOOS=$(1) GOARCH=$(2) CGO_ENABLED=0 $(GO) build -trimpath -ldflags '$(LDFLAGS)' \
+			-o $(DIST_DIR)/$$name-$(1)-$(2)$(if $(filter windows,$(1)),.exe,) $$mainpkg || exit 1; \
+	done
 endef
 
 ## clean: remove build + coverage artifacts

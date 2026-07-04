@@ -12,18 +12,23 @@ import (
 // Admin User (Auth Service)
 
 type (
-	AdminSetupResponse struct {
-	}
+	// Data-only responses. The handler builds any success message and maps
+	// errors to status codes; the service returns just what the client needs.
+	AdminSetupResponse struct{}
 
-	// TODO: RFC Standard for Authorization Server / Authentication / Oauth
+	// AdminTokenResponse is the RFC 6749 §5.1 access-token payload.
 	AdminTokenResponse struct {
+		AccessToken  string `json:"access_token"`
+		TokenType    string `json:"token_type"`
+		ExpiresIn    int    `json:"expires_in"`
+		RefreshToken string `json:"refresh_token"`
 	}
 
-	AdminForgotPasswordResponse struct {
-	}
+	AdminForgotPasswordResponse struct{}
 
-	AdminChangePasswordResponse struct {
-	}
+	AdminChangePasswordResponse struct{}
+
+	AdminResetPasswordResponse struct{}
 )
 
 // Admin File Management Service

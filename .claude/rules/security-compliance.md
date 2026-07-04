@@ -23,9 +23,9 @@ verifiable backbone the regulatory sections below lean on.
 
 | # | Control | Standard | Status |
 |---|---------|----------|--------|
-| X1 | Passwords hashed with **Argon2id** (RFC 9106) — never bcrypt/sha/plaintext. Parameters checked in on introduction. | OWASP ASVS 2.4 | planned |
-| X2 | Session/access tokens are **JWT** with the algorithm pinned server-side (reject `alg=none`; RFC 7519/8725); secret ≥ 256-bit; `exp` always set. | RFC 8725 | planned |
-| X3 | Refresh tokens are opaque, stored **hashed** (SHA-256), single-use, with reuse-detection that revokes the family (RFC 6749 §10.4). | RFC 6749 | planned |
+| X1 | Passwords hashed with **Argon2id** (RFC 9106) — never bcrypt/sha/plaintext. Parameters checked in on introduction. | OWASP ASVS 2.4 | partial (`internal/shared/hasher` built + CI-tested: argon2id, PHC storage, rehash-on-verify, semaphore; no live hashing path until Login/Setup service — Phase 5) |
+| X2 | Session/access tokens are **JWT** with the algorithm pinned server-side (reject `alg=none`; RFC 7519/8725); secret ≥ 256-bit; `exp` always set. | RFC 8725 | partial (`internal/shared/token` built + CI-tested: HS256 pinned, `alg=none`/confusion rejected, `exp` required, ≥256-bit secret floor; issuance/verification wiring — Phase 5) |
+| X3 | Refresh tokens are opaque, stored **hashed** (SHA-256), single-use, with reuse-detection that revokes the family (RFC 6749 Section 10.4). | RFC 6749 | partial (model + repo built + CI-tested: hashed at rest, `Rotate`/`RevokeFamily`/`RevokeAllForUser` primitives; rotation + reuse-detection call sites — Phase 5) |
 | X4 | Auth cookies use `__Host-` prefix, `HttpOnly`, `Secure`, `SameSite=Lax`. | OWASP | planned |
 | X5 | Every request carries a **UUIDv7** request id (RFC 9562); it appears in logs and in the `instance` field of error responses. | RFC 9562 | partial (uuidv7 in models) |
 | X6 | API errors use **`application/problem+json`** (RFC 9457); success uses the `{code, message, data}` envelope. Internal error text/stack traces never reach clients. | RFC 9457 | planned |
@@ -44,7 +44,7 @@ Operator owns the ISMS; we supply technical controls that map to Annex A.
 - **A.8.24 Cryptography** — crypto choices are centralised (X1–X4), never hand-rolled per feature. Use `crypto/*` and vetted libraries only.
 - **A.8.15 Logging** — security-relevant events (admin login, password change, permission change, data export/delete) emit an audit log entry with actor, action, target id, timestamp, request id. `planned`.
 - **A.8.5 Secure authentication** — X1–X4.
-- **A.5.34 Privacy & PII protection** — see §2.
+- **A.5.34 Privacy & PII protection** — see Section 2.
 - **Data at rest** — SQLite file permissions `0600`; document operator guidance for full-disk / volume encryption. `planned`.
 
 ## 2. GDPR (EU) & CCPA/CPRA (California)
@@ -70,10 +70,10 @@ Primary Account Numbers.
 
 ## 4. UU PDP — Law No. 27/2022 (Indonesia)
 
-Indonesia's PDP law tracks GDPR closely; the §2 controls largely satisfy it.
+Indonesia's PDP law tracks GDPR closely; the Section 2 controls largely satisfy it.
 
-- **Consent & purpose limitation** — as §2. Support Bahasa Indonesia consent copy.
-- **Data subject rights** — access, correction, erasure, withdrawal of consent (reuse §2 mechanisms).
+- **Consent & purpose limitation** — as Section 2. Support Bahasa Indonesia consent copy.
+- **Data subject rights** — access, correction, erasure, withdrawal of consent (reuse Section 2 mechanisms).
 - **Breach notification** — retain the audit/event log (A.8.15) needed to reconstruct an incident within the 3×24-hour notification window. `planned`.
 - **Cross-border transfer** — because Logres is self-hosted, data residency is the operator's choice; document which integrations (payment, email) egress data abroad.
 
@@ -81,7 +81,7 @@ Indonesia's PDP law tracks GDPR closely; the §2 controls largely satisfy it.
 
 Applies only if an operator runs regulated financial/payment features.
 
-- **Do not become a payment processor.** Integrate licensed providers; keep fund movement outside Logres (see §3).
+- **Do not become a payment processor.** Integrate licensed providers; keep fund movement outside Logres (see Section 3).
 - **Auditability** — immutable, append-only audit log for anything money-adjacent (order state changes, refunds); order status transitions go through the (planned) FSM with recorded actor + reason.
 - **Data residency** — flag integrations that move data outside Indonesia so a regulated operator can disable them.
 
@@ -90,7 +90,7 @@ Applies only if an operator runs regulated financial/payment features.
 Out of default scope — Logres is not a health product. If an operator sells
 regulated health goods:
 
-- Any PHI is treated at the §2 PII bar **plus** encryption at rest and access
+- Any PHI is treated at the Section 2 PII bar **plus** encryption at rest and access
   logging (A.8.15).
 - No PHI in logs, URLs, or analytics. This is advisory until a real use case exists.
 

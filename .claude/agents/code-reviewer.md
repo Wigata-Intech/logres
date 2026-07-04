@@ -31,7 +31,7 @@ what it flags; find what it can't.
 | SQL | Parameterised only — never string-built with user input. Interpolated identifiers must be allowlist-validated. `rows.Close()`, `rows.Err()`, `tx.Rollback()` present. |
 | Money | `shopspring/decimal` — any `float64` for money is [MAJOR]. |
 | IDs / time | UUIDv7 for ids; RFC 9562 request-id in logs + problem `instance`. |
-| Auth | Argon2id passwords (RFC 9106); JWT alg pinned, `exp` set, ≥256-bit secret (RFC 7519/8725); refresh tokens hashed + single-use + reuse-detection (RFC 6749 §10.4); `__Host-` HttpOnly Secure SameSite cookies. |
+| Auth | Argon2id passwords (RFC 9106); JWT alg pinned, `exp` set, ≥256-bit secret (RFC 7519/8725); refresh tokens hashed + single-use + reuse-detection (RFC 6749 Section 10.4); `__Host-` HttpOnly Secure SameSite cookies. |
 | Logging | `slog`; PII/secrets redacted **before** the call (GDPR Art. 25). PII in any log line = [MAJOR]. |
 | FK | A `FOREIGN KEY` in a migration is [MAJOR] — use indexed columns/join tables. |
 | License | New dependency must be redistributable under AGPL-3.0 and pulled minimally; unimported deps (breaks `go mod tidy`) or a heavy lib replacing ~50 lines of stdlib = [MAJOR]. `go.sum` committed. |
@@ -51,7 +51,7 @@ what it flags; find what it can't.
 ## Review checklist (skip sections the diff doesn't touch)
 
 1. **Layering & boundaries** — import direction; no business logic in handlers; no HTTP in service/repository; BFF isolation.
-2. **Security (OWASP lens)** — injection, broken auth, IDOR/missing authz, sensitive-data exposure. Handler inputs validated (`go-playground/validator`) before use. Card data (PAN/CVV) must never be stored/logged — [BLOCKER] (PCI descope; see rules §3).
+2. **Security (OWASP lens)** — injection, broken auth, IDOR/missing authz, sensitive-data exposure. Handler inputs validated (`go-playground/validator`) before use. Card data (PAN/CVV) must never be stored/logged — [BLOCKER] (PCI descope; see rules Section 3).
 3. **Privacy/compliance** — cross-check `.claude/rules/security-compliance.md`. New PII column → documented purpose + a deletion path (soft-delete is not erasure). New third-party data egress disclosed.
 4. **Error handling** — wrapping, sentinel usage, no internal detail/stack traces in 5xx bodies.
 5. **Concurrency & resources** — context propagated through blocking calls; goroutines have a shutdown path; deferred cleanup correct; no read tx held across network I/O.

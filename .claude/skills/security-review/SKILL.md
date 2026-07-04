@@ -13,7 +13,7 @@ Any diff that touches authentication/authorization, personal data (PII), money,
 logging, SQL, cryptography, or a new dependency / external data flow.
 
 ## Procedure
-1. Identify which controls the diff touches (rules §0 cross-cutting RFCs, §1–§7 regimes).
+1. Identify which controls the diff touches (rules Section 0 cross-cutting RFCs, Section 1–Section 7 regimes).
 2. Verify each applicable control holds — cite it by id (e.g. `X2`, GDPR erasure).
 3. Flag gaps as findings: `[BLOCKER]` (exploitable / illegal), `[MAJOR]` (standard violated), `[MINOR]` (hardening).
 4. Confirm the change updated the rules file if it introduced or altered a control.

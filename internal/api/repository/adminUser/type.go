@@ -20,6 +20,8 @@ const (
 		`full_name = ?, email = ?, password = ?, status = ?, ` +
 		`last_login_at = ?, updated_at = ?, deleted_at = ? ` +
 		`WHERE id = ?`
+
+	countAdminUsers = `SELECT COUNT(*) FROM admin_users WHERE deleted_at IS NULL`
 )
 
 type adminUserRepository struct {

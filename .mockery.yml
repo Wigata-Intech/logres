@@ -30,3 +30,10 @@ packages:
       IProductService:
       ICartService:
       IOrderService:
+  github.com/wigata-intech/logres/internal/shared/mailer:
+    config:
+      inpackage: false
+      dir: "mock/shared/mailer"
+      filename: "{{.InterfaceName}}.go"
+    interfaces:
+      Mailer:

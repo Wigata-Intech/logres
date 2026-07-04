@@ -16,6 +16,10 @@ const (
 		`id, full_name, email, password, status, last_login_at, created_at, updated_at, deleted_at ` +
 		`FROM admin_users WHERE email = ? AND deleted_at IS NULL`
 
+	selectAdminUserByID = `SELECT ` +
+		`id, full_name, email, password, status, last_login_at, created_at, updated_at, deleted_at ` +
+		`FROM admin_users WHERE id = ? AND deleted_at IS NULL`
+
 	updateAdminUser = `UPDATE admin_users SET ` +
 		`full_name = ?, email = ?, password = ?, status = ?, ` +
 		`last_login_at = ?, updated_at = ?, deleted_at = ? ` +

@@ -7,6 +7,7 @@ package repository
 import (
 	"context"
 
+	"github.com/google/uuid"
 	mock "github.com/stretchr/testify/mock"
 	"github.com/wigata-intech/logres/internal/api/model"
 )
@@ -219,6 +220,74 @@ func (_c *MockIAdminUserRepository_GetByEmail_Call) Return(adminUser *model.Admi
 }
 
 func (_c *MockIAdminUserRepository_GetByEmail_Call) RunAndReturn(run func(ctx context.Context, email string) (*model.AdminUser, error)) *MockIAdminUserRepository_GetByEmail_Call {
+	_c.Call.Return(run)
+	return _c
+}
+
+// GetByID provides a mock function for the type MockIAdminUserRepository
+func (_mock *MockIAdminUserRepository) GetByID(ctx context.Context, id uuid.UUID) (*model.AdminUser, error) {
+	ret := _mock.Called(ctx, id)
+
+	if len(ret) == 0 {
+		panic("no return value specified for GetByID")
+	}
+
+	var r0 *model.AdminUser
+	var r1 error
+	if returnFunc, ok := ret.Get(0).(func(context.Context, uuid.UUID) (*model.AdminUser, error)); ok {
+		return returnFunc(ctx, id)
+	}
+	if returnFunc, ok := ret.Get(0).(func(context.Context, uuid.UUID) *model.AdminUser); ok {
+		r0 = returnFunc(ctx, id)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*model.AdminUser)
+		}
+	}
+	if returnFunc, ok := ret.Get(1).(func(context.Context, uuid.UUID) error); ok {
+		r1 = returnFunc(ctx, id)
+	} else {
+		r1 = ret.Error(1)
+	}
+	return r0, r1
+}
+
+// MockIAdminUserRepository_GetByID_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'GetByID'
+type MockIAdminUserRepository_GetByID_Call struct {
+	*mock.Call
+}
+
+// GetByID is a helper method to define mock.On call
+//   - ctx context.Context
+//   - id uuid.UUID
+func (_e *MockIAdminUserRepository_Expecter) GetByID(ctx any, id any) *MockIAdminUserRepository_GetByID_Call {
+	return &MockIAdminUserRepository_GetByID_Call{Call: _e.mock.On("GetByID", ctx, id)}
+}
+
+func (_c *MockIAdminUserRepository_GetByID_Call) Run(run func(ctx context.Context, id uuid.UUID)) *MockIAdminUserRepository_GetByID_Call {
+	_c.Call.Run(func(args mock.Arguments) {
+		var arg0 context.Context
+		if args[0] != nil {
+			arg0 = args[0].(context.Context)
+		}
+		var arg1 uuid.UUID
+		if args[1] != nil {
+			arg1 = args[1].(uuid.UUID)
+		}
+		run(
+			arg0,
+			arg1,
+		)
+	})
+	return _c
+}
+
+func (_c *MockIAdminUserRepository_GetByID_Call) Return(adminUser *model.AdminUser, err error) *MockIAdminUserRepository_GetByID_Call {
+	_c.Call.Return(adminUser, err)
+	return _c
+}
+
+func (_c *MockIAdminUserRepository_GetByID_Call) RunAndReturn(run func(ctx context.Context, id uuid.UUID) (*model.AdminUser, error)) *MockIAdminUserRepository_GetByID_Call {
 	_c.Call.Return(run)
 	return _c
 }

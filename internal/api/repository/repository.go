@@ -12,6 +12,7 @@ import (
 type IAdminUserRepository interface {
 	Create(ctx context.Context, adminUser *model.AdminUser) error
 	GetByEmail(ctx context.Context, email string) (*model.AdminUser, error)
+	GetByID(ctx context.Context, id uuid.UUID) (*model.AdminUser, error)
 	Update(ctx context.Context, adminUser *model.AdminUser) error
 	CountAll(ctx context.Context) (int, error)
 }

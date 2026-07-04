@@ -6,6 +6,8 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/google/uuid"
+
 	"github.com/wigata-intech/logres/internal/api/model"
 	"github.com/wigata-intech/logres/internal/shared/dbx"
 )
@@ -28,6 +30,28 @@ func (r *adminUserRepository) GetByEmail(ctx context.Context, email string) (*mo
 	}
 	if err != nil {
 		return nil, fmt.Errorf("adminUserRepository.GetByEmail: %w", err)
+	}
+	return &adminUser, nil
+}
+
+func (r *adminUserRepository) GetByID(ctx context.Context, id uuid.UUID) (*model.AdminUser, error) {
+	var adminUser model.AdminUser
+	err := r.db.QueryRowContext(ctx, selectAdminUserByID, id).Scan(
+		&adminUser.ID,
+		&adminUser.FullName,
+		&adminUser.Email,
+		&adminUser.Password,
+		&adminUser.Status,
+		&adminUser.LastLoginAt,
+		&adminUser.CreatedAt,
+		&adminUser.UpdatedAt,
+		&adminUser.DeletedAt,
+	)
+	if errors.Is(err, sql.ErrNoRows) {
+		return nil, dbx.ErrNotFound
+	}
+	if err != nil {
+		return nil, fmt.Errorf("adminUserRepository.GetByID: %w", err)
 	}
 	return &adminUser, nil
 }
